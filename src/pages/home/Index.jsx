@@ -44,7 +44,7 @@ export const Home = () => {
                 <div className="intro_btn-action pb-5">
                   <Link to="/ourvets" className="text_2">
                     <div id="button_h" className="ac_btn btn ">
-                      Our Vets
+                      Vets
                       <div className="ring one"></div>
                       <div className="ring two"></div>
                       <div className="ring three"></div>
@@ -52,7 +52,7 @@ export const Home = () => {
                   </Link>
                   <Link to="/services">
                     <div id="button_h" className="ac_btn btn">
-                      Our Services
+                      About
                       <div className="ring one"></div>
                       <div className="ring two"></div>
                       <div className="ring three"></div>
@@ -60,7 +60,15 @@ export const Home = () => {
                   </Link>
                   <Link to="/contact">
                     <div id="button_h" className="ac_btn btn">
-                      Contact Us
+                      Contact
+                      <div className="ring one"></div>
+                      <div className="ring two"></div>
+                      <div className="ring three"></div>
+                    </div>
+                  </Link>
+                  <Link to="/booking">
+                    <div id="button_h" className="ac_btn btn">
+                      Booking
                       <div className="ring one"></div>
                       <div className="ring two"></div>
                       <div className="ring three"></div>

@@ -6,6 +6,7 @@ import { Home } from "../pages/home/Index.jsx";
 import { OurVets } from "../pages/ourvets/Index.jsx";
 import { ContactUs } from "../pages/contact/Index.jsx";
 import { Services } from "../pages/services/Index.jsx";
+import { Booking } from "../pages/booking/Index.jsx";
 import Socialicons from "../components/Socialicons.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
@@ -29,6 +30,7 @@ const AnimatedRoutes = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/ourvets" element={<OurVets />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/booking" element={<Booking />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </CSSTransition>

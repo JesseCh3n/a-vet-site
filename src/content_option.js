@@ -1,20 +1,20 @@
-const logotext = "JC";
+const logotext = "X Vets";
 const meta = {
-    title: "Jesse Chen",
-    description: `I'm Jesse Chen, a science and tehnologies enthusiast.`,
+    title: "X Vets Clinic",
+    description: `We provide exceptional treatment to all kinds of domestic pets.`,
 };
 
 const introdata = {
-    title: `Hi, I'm ${meta.title}`,
+    title: `Hi, Welcome to ${meta.title}`,
     animated: {
-        first: "Computer Gamer",
-        second: "Automation Engineer",
-        third: "Programmer",
-        fourth: "Tech Analyst",
-        fifth: "Maths & Physics Teacher",
-        sixth: "A Chef"
+        first: "General Consulting",
+        second: "Desexing",
+        third: "General Surgery",
+        fourth: "Specialist Surgery",
+        fifth: "Animal Dental",
+        sixth: "Grooming"
     },
-    description: "Dedicated science and technology enthusiast with a concious mind of innovation's social impact.",
+    description: "Dedicated vets with more than 50 years of experience.",
     your_img_url: "./src/me.jpg",
 };
 

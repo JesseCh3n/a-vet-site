@@ -16,7 +16,15 @@
         "typewriter-effect": "^2.18.2",
         "vite": "^4.4.11",
         "vite-tsconfig-paths": "^4.2.1",
-        "web-vitals": "^3.1.1"
+        "web-vitals": "^3.1.1",
+        "@mui/material": "^5.14.14",
+        "@mui/x-date-pickers": "^6.16.2",
+        "@mui/x-data-grid": "^6.16.2",
+        "@mui/icons-material": "^5.14.14",
+        "@mui/x-data-grid-generator": "^6.16.2",
+        "dayjs": "^1.11.10",
+        "@emotion/react": "11.11.1",
+        "@emotion/styled": "11.11.0"
     },
     "scripts": {
         "start": "vite",
@@ -44,5 +52,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0"
     }
 }

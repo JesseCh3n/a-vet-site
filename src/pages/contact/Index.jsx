@@ -103,7 +103,9 @@ export const ContactUs = () => {
             </address>
             <p>{contactConfig.description}</p>
           </Col>
-          <Col lg="4" className="mb-5">
+        </Row>
+        <Row className="sec_sp">
+          <Col lg="4" className="mb-5 me-5">
             <h3 className="color_sec py-4">Sign In</h3>
             <form onSubmit={handleSubmit} className="contact__form w-80">
                 <Row lg="6" className="form-group">
@@ -140,7 +142,7 @@ export const ContactUs = () => {
               </Row>
             </form>
           </Col>
-          <Col lg="4" className="mb-5">
+          <Col lg="4" className="mb-5 me-5">
           <h3 className="color_sec py-4">Sign Up</h3>
             <form onSubmit={handleSubmit} className="contact__form w-80">
                 <Row lg="6" className="form-group">
