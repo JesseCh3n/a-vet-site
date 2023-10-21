@@ -21,7 +21,7 @@ section {
 }
 
 .btn-portfolio a {
-    color: #000;
+    color: #d67e73;
     text-decoration: none;
 }
 
@@ -146,7 +146,7 @@ section {
 }
 
 .ac_btn .one {
-    background-color: #000;
+    background-color: var(--primary-color);
     transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
     z-index: -3;
     z-index: -4;
@@ -234,6 +234,6 @@ section {
 }
 
 .typewriter-text {
-    color: #FDD900;
+    color: #0085a1;
 }
   

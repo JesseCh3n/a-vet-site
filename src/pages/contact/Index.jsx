@@ -10,7 +10,7 @@ export const ContactUs = () => {
   const [formData, setFormdata] = useState({
     email: "",
     name: "",
-    message: "",
+    password: "",
     loading: false,
     show: false,
     alertmessage: "",
@@ -40,7 +40,7 @@ export const ContactUs = () => {
           console.log(result.text);
           setFormdata({
             loading: false,
-            alertmessage: "SUCCESS! , Looking forward to reading your email.",
+            alertmessage: "SUCCESS! , please book an appointment with one of our vets.",
             variant: "success",
             show: true,
           });
@@ -74,12 +74,12 @@ export const ContactUs = () => {
         </Helmet>
         <Row className="mb-5 mt-3 pt-md-3">
           <Col lg="8">
-            <h1 className="display-4 mb-4">Contact Me</h1>
+            <h1 className="display-4 mb-4">Contact Us</h1>
             <hr className="t_border my-4 ml-0 text-left" />
           </Col>
         </Row>
         <Row className="sec_sp">
-          <Col lg="12">
+          <Col lg="14">
             <Alert
               //show={formData.show}
               variant={formData.variant}
@@ -92,7 +92,7 @@ export const ContactUs = () => {
               <p className="my-0">{formData.alertmessage}</p>
             </Alert>
           </Col>
-          <Col lg="5" className="mb-5">
+          <Col lg="4" className="mb-5">
             <h3 className="color_sec py-4">Get in touch</h3>
             <address>
               <strong>Email:</strong>{" "}
@@ -103,22 +103,10 @@ export const ContactUs = () => {
             </address>
             <p>{contactConfig.description}</p>
           </Col>
-          <Col lg="7" className="d-flex align-items-center">
-            <form onSubmit={handleSubmit} className="contact__form w-100">
-              <Row>
-                <Col lg="6" className="form-group">
-                  <input
-                    className="form-control"
-                    id="name"
-                    name="name"
-                    placeholder="Name"
-                    value={formData.name || ""}
-                    type="text"
-                    required
-                    onChange={handleChange}
-                  />
-                </Col>
-                <Col lg="6" className="form-group">
+          <Col lg="4" className="mb-5">
+            <h3 className="color_sec py-4">Sign In</h3>
+            <form onSubmit={handleSubmit} className="contact__form w-80">
+                <Row lg="6" className="form-group">
                   <input
                     className="form-control rounded-0"
                     id="email"
@@ -129,18 +117,68 @@ export const ContactUs = () => {
                     required
                     onChange={handleChange}
                   />
+                </Row>
+                <Row lg="6" className="form-group">
+                  <input
+                    className="form-control rounded-0"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    type="email"
+                    value={formData.password || ""}
+                    required
+                    onChange={handleChange}
+                  />
+                </Row>
+              <br />
+              <Row>
+                <Col lg="12" className="form-group">
+                  <button className="btn ac_btn" type="submit">
+                    {formData.loading ? "Sending..." : "Send"}
+                  </button>
                 </Col>
               </Row>
-              <textarea
-                className="form-control rounded-0"
-                id="message"
-                name="message"
-                placeholder="Message"
-                rows="5"
-                value={formData.message}
-                onChange={handleChange}
-                required
-              ></textarea>
+            </form>
+          </Col>
+          <Col lg="4" className="mb-5">
+          <h3 className="color_sec py-4">Sign Up</h3>
+            <form onSubmit={handleSubmit} className="contact__form w-80">
+                <Row lg="6" className="form-group">
+                  <input
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    placeholder="Name"
+                    value={formData.name || ""}
+                    type="text"
+                    required
+                    onChange={handleChange}
+                  />
+                </Row>
+                <Row lg="6" className="form-group">
+                  <input
+                    className="form-control rounded-0"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    type="email"
+                    value={formData.email || ""}
+                    required
+                    onChange={handleChange}
+                  />
+                </Row>
+                <Row lg="6" className="form-group">
+                  <input
+                    className="form-control rounded-0"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                    value={formData.email || ""}
+                    required
+                    onChange={handleChange}
+                  />
+                </Row>
               <br />
               <Row>
                 <Col lg="12" className="form-group">

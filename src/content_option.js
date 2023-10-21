@@ -18,10 +18,21 @@ const introdata = {
     your_img_url: "./src/me.jpg",
 };
 
-const dataabout = {
-    title: "Who am I?",
-    aboutme: "I am a factory automation engineer with over 10 years experience in many interesting industries, from aircraft manufacturing to money printing. With a curious mind, I am always eager to explore new techs and apply them in factory automation.",
+const dataabout1 = {
+    title: "General Consulting",
+    aboutme: "We provide general consult cares to all domestic animals",
 };
+
+const dataabout2 = {
+    title: "Surgery",
+    aboutme: "We provide surgeries such as spay or castration",
+};
+
+const dataabout3 = {
+    title: "Special treatment",
+    aboutme: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
+};
+
 const worktimeline = [{
         jobtitle: "Control Engineer",
         where: "A banknote printing place",
@@ -72,7 +83,7 @@ const skills = [{
     },
 ];
 
-const dataportfolio = [{
+const datavets = [{
         img: "./src/PictoHang.png",
         description: "A fun cross between Pictionary and Hangman.",
         link: "https://sleepyhaha.github.io/team-samsung/",
@@ -151,8 +162,10 @@ const socialprofils = {
 };
 export {
     meta,
-    dataabout,
-    dataportfolio,
+    dataabout1,
+    dataabout2,
+    dataabout3,
+    datavets,
     worktimeline,
     skills,
     introdata,
