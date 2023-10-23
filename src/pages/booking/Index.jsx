@@ -15,7 +15,8 @@ import { useState } from 'react';
 
 export const Booking = () => {
 
-
+  const currentDate = new Date();
+  
   const [selectedDate, setselectedDate] = useState(null);
   console.log({ selectedDate });
   // const [selectedTime, setselectedTime] = useState('');
