@@ -5,10 +5,33 @@ import { Row, Col, Container } from "react-bootstrap";
 import {
   meta,
 } from "../../content_option.js";
-import BasicDateCalendar from "../../components/mycal";
-import FullFeaturedCrudGrid from "../../components/form";
+
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { useState } from 'react';
 
 export const Booking = () => {
+
+
+  const [selectedDate, setselectedDate] = useState(null);
+  console.log({ selectedDate });
+  // const [selectedTime, setselectedTime] = useState('');
+  // console.log({ selectedTime });
+  const [selectedText, setselectedText] = useState('');
+  const handleChange2 = (event) => {
+    setselectedText(event.target.value);
+  };
+  console.log({ selectedText });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log('You clicked submit.');
+    console.log({ selectedDate, selectedText});
+  }
+
   return (
     <HelmetProvider>
       <Container className="About-header">
@@ -24,13 +47,42 @@ export const Booking = () => {
           </Col>
         </Row>
         <Row className="sec_sp">
-          <Col lg="5">
-            <BasicDateCalendar>
-            </BasicDateCalendar>
+          <Col lg="8">
+          <DemoContainer
+            components={[
+              'DateTimePicker',
+            ]}
+          >
+              <DateTimePicker 
+                defaultValue={currentDate}
+                orientation='landscape'
+                value={selectedDate}
+                minDate={currentDate}
+                minutesStep={30}
+                minTime={new Date(0, 0, 0, 8)}
+                maxTime={new Date(0, 0, 0, 16, 30)}
+                onChange={(newValue) => {
+                  setselectedDate(newValue)
+                }}
+              />
+          </DemoContainer>
           </Col>
-          <Col lg="7" className="d-flex align-items-center">
-          <FullFeaturedCrudGrid>
-          </FullFeaturedCrudGrid>
+        </Row>
+        <Row className="sec_sp">
+          <Col lg="8">
+          <Box
+            component="form"
+            sx={{
+              '& > :not(style)': { m: 1, width: '80ch' },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField id="standard-basic" label="Please leave a message." variant="standard" onChange={handleChange2}/>
+          </Box>
+          </Col>
+          <Col lg="4" className="d-flex align-items-center justify-content-center">
+            <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
           </Col>
         </Row>
       </Container>

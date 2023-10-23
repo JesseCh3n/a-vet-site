@@ -58,7 +58,7 @@ const Socialicons = () => {
           </li>
         )}
       </ul>
-      <p>Follow Me</p>
+      <p>Follow Us</p>
     </div>
   );
 };

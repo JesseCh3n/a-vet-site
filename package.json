@@ -22,7 +22,7 @@
         "@mui/x-data-grid": "^6.16.2",
         "@mui/icons-material": "^5.14.14",
         "@mui/x-data-grid-generator": "^6.16.2",
-        "dayjs": "^1.11.10",
+        "date-fns": "^2.30.0",
         "@emotion/react": "11.11.1",
         "@emotion/styled": "11.11.0"
     },
