@@ -6,12 +6,71 @@ import {
   meta,
 } from "../../content_option.js";
 
+import getDay from 'date-fns/getDay'
+
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {
+  GridRowModes,
+  DataGrid,
+  GridActionsCellItem,
+  GridRowEditStopReasons,
+} from '@mui/x-data-grid';
+import {
+  randomCreatedDate,
+  randomId,
+  randomArrayItem,
+} from '@mui/x-data-grid-generator';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+function disableWeekends(date) {
+  return getDay(date) === 0 || getDay(date) === 6;
+}
+
+const roles = ['The cat is vomitting', 'My dog pees randomly', 'My cat is having a fever'];
+const randomRole = () => {
+  return randomArrayItem(roles);
+};
+
+const initialRows = [
+  {
+    id: randomId(),
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
+  },
+  {
+    id: randomId(),
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
+  },
+  {
+    id: randomId(),
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
+  },
+  {
+    id: randomId(),
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
+  },
+  {
+    id: randomId(),
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
+  },
+];
+
 
 export const Booking = () => {
 
@@ -19,8 +78,13 @@ export const Booking = () => {
   
   const [selectedDate, setselectedDate] = useState(null);
   console.log({ selectedDate });
-  // const [selectedTime, setselectedTime] = useState('');
-  // console.log({ selectedTime });
+
+  const [vet, setVet] = useState('');
+
+  const handleChange = (event) => {
+    setVet(event.target.value);
+  };
+
   const [selectedText, setselectedText] = useState('');
   const handleChange2 = (event) => {
     setselectedText(event.target.value);
@@ -32,6 +96,117 @@ export const Booking = () => {
     console.log('You clicked submit.');
     console.log({ selectedDate, selectedText});
   }
+
+  const [rows, setRows] = useState(initialRows);
+  const [rowModesModel, setRowModesModel] = React.useState({});
+
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
+    }
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id) => () => {
+    setRows(rows.filter((row) => row.id !== id));
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const processRowUpdate = (newRow) => {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+
+  const columns = [
+    {
+      field: 'joinDate',
+      headerName: 'Existing Booking',
+      type: 'date',
+      width: 280,
+      editable: false,
+    },
+    {
+      field: 'role',
+      headerName: 'Descriptions',
+      width: 500,
+      editable: true,
+      type: 'text',
+    },
+    {
+      field: 'vet',
+      headerName: 'Vets',
+      width: 200,
+      editable: true,
+      type: 'singleSelect',
+      valueOptions: ["Michael", "Suki", "Candice"]
+    },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      cellClassName: 'actions',
+      getActions: ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+          return [
+            <GridActionsCellItem
+              icon={<SaveIcon />}
+              label="Save"
+              sx={{
+                color: 'primary.main',
+              }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              icon={<CancelIcon />}
+              label="Cancel"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
+          ];
+        }
+
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
+    },
+  ];
 
   return (
     <HelmetProvider>
@@ -54,7 +229,9 @@ export const Booking = () => {
               'DateTimePicker',
             ]}
           >
-              <DateTimePicker 
+              <DateTimePicker
+                hintText="Weekends Disabled" 
+                shouldDisableDate={disableWeekends}
                 defaultValue={currentDate}
                 orientation='landscape'
                 value={selectedDate}
@@ -67,6 +244,25 @@ export const Booking = () => {
                 }}
               />
           </DemoContainer>
+          </Col>
+          <Col lg="4" className="d-flex align-items-center justify-content-center">
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-standard-label">Vet</InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={vet}
+              onChange={handleChange}
+              label="Vet"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={"Michael"}>Michael</MenuItem>
+              <MenuItem value={"Suki"}>Suki</MenuItem>
+              <MenuItem value={"Candice"}>Candice</MenuItem>
+            </Select>
+          </FormControl>
           </Col>
         </Row>
         <Row className="sec_sp">
@@ -86,7 +282,32 @@ export const Booking = () => {
             <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
           </Col>
         </Row>
+        <Row className="sec_sp">
+          <Box
+            sx={{
+              height: 500,
+              width: '100%',
+              '& .actions': {
+                color: 'text.secondary',
+              },
+              '& .textPrimary': {
+                color: 'text.primary',
+              },
+            }}
+          >
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              editMode="row"
+              rowModesModel={rowModesModel}
+              onRowEditStop={handleRowEditStop}
+              processRowUpdate={processRowUpdate}
+            />
+          </Box>
+        </Row>
       </Container>
     </HelmetProvider>
   );
 };
+
+
