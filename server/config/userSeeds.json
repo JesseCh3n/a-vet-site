@@ -1,0 +1,132 @@
+[
+  {
+    "firstName": "Brian Kernighan",
+    "lastName": "Kernighan",
+    "email": "bkernighan@techfriends.dev",
+    "password": "password01",
+    "appointments": [
+      {
+        "vet": "Michael",
+        "appointmentDate": "2023-12-11T00:00:00.999Z",
+        "appointmentTime": "9:00 AM",
+        "appointmentText": "Bob is sick."
+      }
+    ]
+  },
+  {
+    "firstName": "Max",
+    "lastName": "Kanat-Alexander",
+    "email": "mkanatalexander@techfriends.dev",
+    "password": "password02",
+    "appointments": [
+      {
+        "vet": "Suki",
+        "appointmentDate": "2023-12-21T00:00:00.999Z",
+        "appointmentTime": "2:30 PM",
+        "appointmentText": "Rocky is having a fever."
+      }
+    ]
+  },
+  {
+    "firstName": "Lucky",
+    "lastName": "Guy",
+    "email": "wtls@techfriends.dev",
+    "password": "password03",
+    "appointments": [
+      {
+        "vet": "Candice",
+        "appointmentDate": "2023-12-21T00:00:00.999Z",
+        "appointmentTime": "8:30 AM",
+        "appointmentText": "My dog keeps puking."
+      },
+      {
+        "vet": "Candice",
+        "appointmentDate": "2024-01-10T00:00:00.999Z",
+        "appointmentTime": "3:30 PM",
+        "appointmentText": "My dog is still sick."
+      }
+    ]
+  },
+  {
+    "firstName": "Kent",
+    "lastName": "Beck",
+    "email": "kbeck@techfriends.dev",
+    "password": "password04",
+    "appointments": [
+      {
+        "vet": "Michael",
+        "appointmentDate": "2023-11-29T00:00:00.999Z",
+        "appointmentTime": "2:30 PM",
+        "appointmentText": "Rocky is having a fever."
+      }
+    ]
+  },
+  {
+    "firstName": "Edward",
+    "lastName": "Berard",
+    "email": "evberard@techfriends.dev",
+    "password": "password05"
+  },
+  {
+    "firstName": "Alan",
+    "lastName": "Kay",
+    "email": "akay@techfriends.dev",
+    "password": "password06",
+    "appointments": [
+      {
+        "vet": "Michael",
+        "appointmentDate": "2023-11-21T00:00:00.999Z",
+        "appointmentTime": "10:00 AM",
+        "appointmentText": "My cat is pregnant."
+      }
+    ]
+  },
+  {
+    "firstName": "Carl",
+    "lastName": "Hoare",
+    "email": "choare@techfriends.dev",
+    "password": "password07",
+    "appointments": [
+      {
+        "vet": "Michael",
+        "appointmentDate": "2023-11-21T00:00:00.999Z",
+        "appointmentTime": "12:00 PM",
+        "appointmentText": "My cat is pregnant."
+      }
+    ]
+  },
+  {
+    "firstName": "David",
+    "lastName": "Thomas",
+    "email": "dthomas@techfriends.dev",
+    "password": "password08",
+    "appointments": [
+      {
+        "vet": "Suki",
+        "appointmentDate": "2023-12-18T00:00:00.999Z",
+        "appointmentTime": "2:00 PM",
+        "appointmentText": "My cat has fever."
+      }
+    ]
+  },
+  {
+    "firstName": "Donald",
+    "lastName": "Knuth",
+    "email": "dknuth@techfriends.dev",
+    "password": "password09"
+  },
+  {
+    "firstName": "Lernantino",
+    "lastName": "Leonardo",
+    "email": "lernantino@techfriends.dev",
+    "password": "password10",
+    "appointments": [
+      {
+        "vet": "Candice",
+        "appointmentDate": "2023-12-18T00:00:00.999Z",
+        "appointmentTime": "4:00 PM",
+        "appointmentText": "My cat doesn't want to eat."
+      }
+    ]
+  }
+]
