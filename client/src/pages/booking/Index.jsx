@@ -25,11 +25,6 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
 } from '@mui/x-data-grid';
-// import {
-//   randomCreatedDate,
-//   randomId,
-//   randomArrayItem,
-// } from '@mui/x-data-grid-generator';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -50,57 +45,16 @@ function disableWeekends(date) {
   return getDay(date) === 0 || getDay(date) === 6;
 }
 
-// const roles = ['The cat is vomitting', 'My dog pees randomly', 'My cat is having a fever'];
-// const randomRole = () => {
-//   return randomArrayItem(roles);
-// };
 
-// const initialRows = [
-//   {
-//     id: "001",
-//     appointmentDate: randomCreatedDate(),
-//     appointmentTime: randomCreatedDate(),
-//     appointmentText: randomRole(),
-//     vet: "Michael",
-//   },
-//   {
-//     id: "002",
-//     appointmentDate: randomCreatedDate(),
-//     appointmentTime: randomCreatedDate(),
-//     appointmentText: randomRole(),
-//     vet: "Michael",
-//   },
-//   {
-//     id: "003",
-//     appointmentDate: randomCreatedDate(),
-//     appointmentTime: randomCreatedDate(),
-//     appointmentText: randomRole(),
-//     vet: "Michael",
-//   },
-//   {
-//     id: "004",
-//     appointmentDate: randomCreatedDate(),
-//     appointmentTime: randomCreatedDate(),
-//     appointmentText: randomRole(),
-//     vet: "Michael",
-//   },
-//   {
-//     id: "005",
-//     appointmentDate: randomCreatedDate(),
-//     appointmentTime: randomCreatedDate(),
-//     appointmentText: randomRole(),
-//     vet: "Michael",
-//   },
-// ];
-
-function tableRow(id, appointmentDate, appointmentTime, appointmentText, vet) {
-  this.id = id;
-  this.appointmentDate = appointmentDate;
-  this.appointmentTime = appointmentTime;
-  this.appointmentText = appointmentText;
-  this.vet = vet;
+class tableRow{
+  constructor(id, appointmentDate, appointmentTime, appointmentText, vet) {
+    this.id = id;
+    this.appointmentDate = appointmentDate;
+    this.appointmentTime = appointmentTime;
+    this.appointmentText = appointmentText;
+    this.vet = vet;
+  }
 }
-
 
 export const Booking = () => {
 
@@ -113,28 +67,31 @@ export const Booking = () => {
   const { loading, data } = useQuery(QUERY_ME);
   const userData = data?.me || [];
 
-  console.log(data);
 
   useEffect(() => {
     if (data) {
       for (let i=0; i<userData.appointments.length; i++) {
-        initialRows.push(new tableRow(
+        const tableData = new tableRow(
           userData.appointments[i]._id,
           userData.appointments[i].appointmentDate,
           userData.appointments[i].appointmentTime,
           userData.appointments[i].appointmentText,
           userData.appointments[i].vet,
-        ));
+        );
+        initialRows = [...initialRows, tableData];
       }
       console.log(initialRows);
       setRows(initialRows);
     }
-  });
-
+  }, [userData]);
 
   const [addAppointment, { error }] = useMutation(ADD_APPOINTMENT);
   const [selectedDate, setselectedDate] = useState(null);
-  // console.log(selectedDate);
+  let DateX = "";
+  if (selectedDate) {
+    DateX = format(selectedDate, 'dd-MM-yyyy');
+  }
+  console.log(DateX);
 
   const [selectedVet, setselectedVet] = useState('');
 
@@ -144,6 +101,7 @@ export const Booking = () => {
   // console.log(selectedVet);
 
   const [selectedTime, setselectedTime] = useState('');
+  console.log(selectedTime);
 
   const handleTimeChange = (event) => {
     setselectedTime(event.target.value);
@@ -154,36 +112,34 @@ export const Booking = () => {
     setselectedText(event.target.value);
   };
 
+  if ((DateX != null) && (selectedTime != null)) {
+    const { data } = useQuery(QUERY_CHECK_USER, {
+      variables: { appDate: DateX, appTime: selectedTime },
+    });
+    console.log(data);
+    // console.log(data.checkUsers.count);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('You clicked submit.');
 
-    // const userId = Auth.getProfile().data._id;
-    // const vetData = selectedVet;
-    // const appDate = format(selectedDate, 'dd-MM-yyyy');
-    // const appTime = selectedTime;
-    // const appText = selectedText;
-    // console.log({userId, vetData, appDate, appTime, appText});
+    const userX = Auth.getProfile().data._id;
 
-    const { data } = useQuery(QUERY_CHECK_USER, {
-      variables: { appDate: format(selectedDate, 'dd-MM-yyyy'), appTime: selectedTime },
-    });
-    // const duplicate = data.checkUsers.count;
-    console.log(data);
     // if (duplicate == 0) {
-        // const { data } = addAppointment({
-        //   variables: { 
-        //     userId: Auth.getProfile().data._id, 
-        //     vetData: selectedVet, 
-        //     appDate: format(selectedDate, 'dd-MM-yyyy'), 
-        //     appTime: selectedTime,
-        //     appText: selectedText
-        //   },
-        // });
+    //     const { data } = addAppointment({
+    //       variables: { 
+    //         userId: userX, 
+    //         vetData: selectedVet, 
+    //         appDate: DateX, 
+    //         appTime: selectedTime,
+    //         appText: selectedText
+    //       },
+    //     });
 
-        // if (data) {
-        //   window.location.reload();
-        // }
+    //     if (data) {
+    //       window.location.reload();
+    //     }
     // } else if (duplicate > 0) {
     //   window.alert("This time slot is booked. Please try another one!");
     // }
@@ -199,23 +155,12 @@ export const Booking = () => {
 
   const handleEditClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+    setRows(rows);
+    console.log(rows);
   };
-
-  const [updateAppointment] = useMutation(UPDATE_APPOINTMENT);
 
   const handleSaveClick = (id) => async () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-    console.log(id);
-    const newRow = rows.filter((e) => (e.id == id));
-    const appText = newRow[0].appointmentText;
-    try {
-      const { data } = await updateAppointment({
-        variables: { appointmentId: id, appointmentText: appText },
-      });
-      console.log(data);
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   const [removeAppointment] = useMutation(REMOVE_APPOINTMENT);
@@ -225,7 +170,7 @@ export const Booking = () => {
     console.log(id);
     try {
       const { data } = await removeAppointment({
-        variables: { id },
+        variables: { appointmentId: id },
       });
     } catch (err) {
       console.error(err);
@@ -244,8 +189,21 @@ export const Booking = () => {
     }
   };
 
+  const [updateAppointment] = useMutation(UPDATE_APPOINTMENT);
+
   const processRowUpdate = (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
+    const appText = updatedRow.appointmentText;
+    const appId = updatedRow.id;
+    console.log(appText);
+    console.log(appId);
+    console.log(typeof(appId));
+
+    const { data } = updateAppointment({
+      variables: { appointmentId: appId, appointmentText: appText },
+    });
+    console.log(data);
+
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
   };

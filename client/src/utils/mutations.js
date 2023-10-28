@@ -33,7 +33,7 @@ export const ADD_APPOINTMENT = gql`
     $appTime: String!,
     $appText: String!
     ) {
-    addApointment(
+    addAppointment(
       userId: $userId,
       vetData: $vetData,
       appDate: $appDate,
