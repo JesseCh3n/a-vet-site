@@ -1,44 +1,39 @@
 const { User } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
-import { GraphQLScalarType } from 'graphql';
-
-today = new Date();
-
-const dateScalar = new GraphQLScalarType({
-  name: 'Date',
-  parseValue(value) {
-    return new Date(value);
-  },
-  serialize(value) {
-    return value.toISOString();
-  },
-})
 
 const resolvers = {
-  Date: dateScalar,
   Query: {
-    user: async (parent, args, context) => {
+    me: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user.id);
+        console.log(context.user);
+        const user = await User.findById(context.user._id);
 
         return user;
       }
 
       throw AuthenticationError;
     },
-    users: async (parent, { id }, context) => {
-      if (context.user.isAdmin) {
-        const users = await User.findAll();
+    users: async (parent, {today}, context) => {
+      if (context.user) {
+        const users = await User.find({'appointments.appointmentDate' : today});
 
-        usersArr = users.map((user) => user.appointments.filter((a) => a.appointmentDate == today));
-
-        return usersArr;
+        return users;
       }
 
       throw AuthenticationError;
     },
+    checkUsers: async (parent, {appDate, appTime}, context) => {
+      // if (context.user) {
+        const count = await User.countDocuments({'appointments.appointmentDate' : appDate, 'appointments.appointmentTime' : appTime });
+
+        return {count};
+      // }
+
+      // throw AuthenticationError;
+    },
   },
+
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -49,12 +44,14 @@ const resolvers = {
 
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
+      console.log(user);
 
       if (!user) {
         throw AuthenticationError;
       }
 
       const correctPw = await user.isCorrectPassword(password);
+      console.log(correctPw);
 
       if (!correctPw) {
         throw AuthenticationError;
@@ -65,32 +62,41 @@ const resolvers = {
       return { token, user };
     },
 
-    addAppointment: async (parent, { Appointment }, context) => {
-      if (context.user) {
+    addAppointment: async (parent, {userId, vetData, appDate, appTime, appText }, context) => {
+      // if (context.user) {
 
-        const user = await User.findByIdAndUpdate(context.user.id, {
-          $push: { appointmentData: Appointment },
+        const user = await User.findOneAndUpdate(
+          {_id: userId},
+          {
+          $addToSet: { 
+            appointments: {
+              vet: vetData,
+              appointmentDate: appDate,
+              appointmentTime: appTime,
+              appointmentText: appText
+            }
+          },
         });
 
         return user;
-      }
+      // }
 
-      throw AuthenticationError;
+      // throw AuthenticationError;
     },
 
-    updateAppointment: async (parent, { userId, appointmentId}, context) => {
-      if (context.user) {
-        const user = await User.findOneAndUpdate({_id: userId, "appointments._id":"appointmentId"}, {
-          $set: {'appointments.$.appointmentText': 'appointmentText' },
+    updateAppointment: async (parent, { appointmentId, appointmentText}, context) => {
+      // if (context.user) {
+        const user = await User.findOneAndUpdate({'appointments._id' : appointmentId}, {
+          $set: {'appointments.$.appointmentText': appointmentText },
         });
         return user;
-      }
-      throw AuthenticationError;
+      // }
+      // throw AuthenticationError;
     },
 
-    removeAppointment: async (parent, { userId, appointmentId}, context) => {
-      if (context.user) {
-        const user = await User.findOneAndUpdate({_id: userId, "appointments._id" : "appointmentId"}, {
+    removeAppointment: async (parent, { appointmentId}, context) => {
+      // if (context.user) {
+        const user = await User.findOneAndUpdate({'appointments._id' : appointmentId}, {
           $pull: {
             appointments: {
               _id: appointmentId,
@@ -98,8 +104,8 @@ const resolvers = {
           }
         });
         return user;
-      }
-      throw AuthenticationError;
+      // }
+      // throw AuthenticationError;
     },
 
   },

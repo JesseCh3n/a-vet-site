@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Row, Col, Container } from "react-bootstrap";
@@ -25,90 +25,171 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
 } from '@mui/x-data-grid';
-import {
-  randomCreatedDate,
-  randomId,
-  randomArrayItem,
-} from '@mui/x-data-grid-generator';
+// import {
+//   randomCreatedDate,
+//   randomId,
+//   randomArrayItem,
+// } from '@mui/x-data-grid-generator';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+import { useQuery, useMutation } from '@apollo/client';
+import { QUERY_ME } from '../../utils/queries';
+import { QUERY_CHECK_USER } from '../../utils/queries';
+import { ADD_APPOINTMENT } from '../../utils/mutations';
+import { UPDATE_APPOINTMENT } from '../../utils/mutations';
+import { REMOVE_APPOINTMENT } from '../../utils/mutations';
+
+import Auth from '../../utils/auth';
 
 function disableWeekends(date) {
   return getDay(date) === 0 || getDay(date) === 6;
 }
 
-const roles = ['The cat is vomitting', 'My dog pees randomly', 'My cat is having a fever'];
-const randomRole = () => {
-  return randomArrayItem(roles);
-};
+// const roles = ['The cat is vomitting', 'My dog pees randomly', 'My cat is having a fever'];
+// const randomRole = () => {
+//   return randomArrayItem(roles);
+// };
 
-const initialRows = [
-  {
-    id: randomId(),
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-];
+// const initialRows = [
+//   {
+//     id: "001",
+//     appointmentDate: randomCreatedDate(),
+//     appointmentTime: randomCreatedDate(),
+//     appointmentText: randomRole(),
+//     vet: "Michael",
+//   },
+//   {
+//     id: "002",
+//     appointmentDate: randomCreatedDate(),
+//     appointmentTime: randomCreatedDate(),
+//     appointmentText: randomRole(),
+//     vet: "Michael",
+//   },
+//   {
+//     id: "003",
+//     appointmentDate: randomCreatedDate(),
+//     appointmentTime: randomCreatedDate(),
+//     appointmentText: randomRole(),
+//     vet: "Michael",
+//   },
+//   {
+//     id: "004",
+//     appointmentDate: randomCreatedDate(),
+//     appointmentTime: randomCreatedDate(),
+//     appointmentText: randomRole(),
+//     vet: "Michael",
+//   },
+//   {
+//     id: "005",
+//     appointmentDate: randomCreatedDate(),
+//     appointmentTime: randomCreatedDate(),
+//     appointmentText: randomRole(),
+//     vet: "Michael",
+//   },
+// ];
+
+function tableRow(id, appointmentDate, appointmentTime, appointmentText, vet) {
+  this.id = id;
+  this.appointmentDate = appointmentDate;
+  this.appointmentTime = appointmentTime;
+  this.appointmentText = appointmentText;
+  this.vet = vet;
+}
 
 
 export const Booking = () => {
 
   const currentDate = new Date();
-  
+
+  const [rows, setRows] = useState([]);
+
+  let initialRows = [];
+
+  const { loading, data } = useQuery(QUERY_ME);
+  const userData = data?.me || [];
+
+  console.log(data);
+
+  useEffect(() => {
+    if (data) {
+      for (let i=0; i<userData.appointments.length; i++) {
+        initialRows.push(new tableRow(
+          userData.appointments[i]._id,
+          userData.appointments[i].appointmentDate,
+          userData.appointments[i].appointmentTime,
+          userData.appointments[i].appointmentText,
+          userData.appointments[i].vet,
+        ));
+      }
+      console.log(initialRows);
+      setRows(initialRows);
+    }
+  });
+
+
+  const [addAppointment, { error }] = useMutation(ADD_APPOINTMENT);
   const [selectedDate, setselectedDate] = useState(null);
-  console.log(selectedDate);
-  // console.log(format(selectedDate, 'dd/MM/YYYY'));
+  // console.log(selectedDate);
 
   const [selectedVet, setselectedVet] = useState('');
 
   const handleVetChange = (event) => {
     setselectedVet(event.target.value);
   };
-  console.log(selectedVet);
+  // console.log(selectedVet);
 
   const [selectedTime, setselectedTime] = useState('');
 
   const handleTimeChange = (event) => {
     setselectedTime(event.target.value);
   };
-  console.log(selectedTime);
 
   const [selectedText, setselectedText] = useState('');
   const handleTextChange = (event) => {
     setselectedText(event.target.value);
   };
-  console.log({ selectedText });
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log('You clicked submit.');
-    console.log({ selectedDate, selectedText});
-  }
 
-  const [rows, setRows] = useState(initialRows);
-  const [rowModesModel, setRowModesModel] = React.useState({});
+    // const userId = Auth.getProfile().data._id;
+    // const vetData = selectedVet;
+    // const appDate = format(selectedDate, 'dd-MM-yyyy');
+    // const appTime = selectedTime;
+    // const appText = selectedText;
+    // console.log({userId, vetData, appDate, appTime, appText});
+
+    const { data } = useQuery(QUERY_CHECK_USER, {
+      variables: { appDate: format(selectedDate, 'dd-MM-yyyy'), appTime: selectedTime },
+    });
+    // const duplicate = data.checkUsers.count;
+    console.log(data);
+    // if (duplicate == 0) {
+        // const { data } = addAppointment({
+        //   variables: { 
+        //     userId: Auth.getProfile().data._id, 
+        //     vetData: selectedVet, 
+        //     appDate: format(selectedDate, 'dd-MM-yyyy'), 
+        //     appTime: selectedTime,
+        //     appText: selectedText
+        //   },
+        // });
+
+        // if (data) {
+        //   window.location.reload();
+        // }
+    // } else if (duplicate > 0) {
+    //   window.alert("This time slot is booked. Please try another one!");
+    // }
+  };
+
+  const [rowModesModel, setRowModesModel] = useState({});
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -120,12 +201,35 @@ export const Booking = () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
   };
 
-  const handleSaveClick = (id) => () => {
+  const [updateAppointment] = useMutation(UPDATE_APPOINTMENT);
+
+  const handleSaveClick = (id) => async () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+    console.log(id);
+    const newRow = rows.filter((e) => (e.id == id));
+    const appText = newRow[0].appointmentText;
+    try {
+      const { data } = await updateAppointment({
+        variables: { appointmentId: id, appointmentText: appText },
+      });
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleDeleteClick = (id) => () => {
+  const [removeAppointment] = useMutation(REMOVE_APPOINTMENT);
+
+  const handleDeleteClick = (id) => async () => {
     setRows(rows.filter((row) => row.id !== id));
+    console.log(id);
+    try {
+      const { data } = await removeAppointment({
+        variables: { id },
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleCancelClick = (id) => () => {
@@ -149,14 +253,21 @@ export const Booking = () => {
 
   const columns = [
     {
-      field: 'joinDate',
-      headerName: 'Existing Booking',
-      type: 'date',
-      width: 280,
+      field: 'appointmentDate',
+      headerName: 'Existing Booking Date',
+      type: 'text',
+      width: 200,
       editable: false,
     },
     {
-      field: 'role',
+      field: 'appointmentTime',
+      headerName: 'Existing Booking Time',
+      type: 'text',
+      width: 200,
+      editable: false,
+    },
+    {
+      field: 'appointmentText',
       headerName: 'Descriptions',
       width: 500,
       editable: true,
@@ -165,10 +276,8 @@ export const Booking = () => {
     {
       field: 'vet',
       headerName: 'Vets',
-      width: 200,
-      editable: true,
-      type: 'singleSelect',
-      valueOptions: ["Michael", "Suki", "Candice"]
+      width: 100,
+      editable: false,
     },
     {
       field: 'actions',

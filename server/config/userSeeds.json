@@ -1,13 +1,13 @@
 [
   {
-    "firstName": "Brian Kernighan",
+    "firstName": "Brian",
     "lastName": "Kernighan",
     "email": "bkernighan@techfriends.dev",
     "password": "password01",
     "appointments": [
       {
         "vet": "Michael",
-        "appointmentDate": "2023-12-11T00:00:00.999Z",
+        "appointmentDate": "11-12-2023",
         "appointmentTime": "9:00 AM",
         "appointmentText": "Bob is sick."
       }
@@ -21,7 +21,7 @@
     "appointments": [
       {
         "vet": "Suki",
-        "appointmentDate": "2023-12-21T00:00:00.999Z",
+        "appointmentDate": "21-12-2023",
         "appointmentTime": "2:30 PM",
         "appointmentText": "Rocky is having a fever."
       }
@@ -35,13 +35,13 @@
     "appointments": [
       {
         "vet": "Candice",
-        "appointmentDate": "2023-12-21T00:00:00.999Z",
+        "appointmentDate": "21-12-2023",
         "appointmentTime": "8:30 AM",
         "appointmentText": "My dog keeps puking."
       },
       {
         "vet": "Candice",
-        "appointmentDate": "2024-01-10T00:00:00.999Z",
+        "appointmentDate": "10-02-2024",
         "appointmentTime": "3:30 PM",
         "appointmentText": "My dog is still sick."
       }
@@ -55,7 +55,7 @@
     "appointments": [
       {
         "vet": "Michael",
-        "appointmentDate": "2023-11-29T00:00:00.999Z",
+        "appointmentDate": "29-11-2023",
         "appointmentTime": "2:30 PM",
         "appointmentText": "Rocky is having a fever."
       }
@@ -75,7 +75,7 @@
     "appointments": [
       {
         "vet": "Michael",
-        "appointmentDate": "2023-11-21T00:00:00.999Z",
+        "appointmentDate": "21-11-2023",
         "appointmentTime": "10:00 AM",
         "appointmentText": "My cat is pregnant."
       }
@@ -89,7 +89,7 @@
     "appointments": [
       {
         "vet": "Michael",
-        "appointmentDate": "2023-11-21T00:00:00.999Z",
+        "appointmentDate": "21-11-2023",
         "appointmentTime": "12:00 PM",
         "appointmentText": "My cat is pregnant."
       }
@@ -103,7 +103,7 @@
     "appointments": [
       {
         "vet": "Suki",
-        "appointmentDate": "2023-12-18T00:00:00.999Z",
+        "appointmentDate": "28-12-2023",
         "appointmentTime": "2:00 PM",
         "appointmentText": "My cat has fever."
       }
@@ -123,7 +123,7 @@
     "appointments": [
       {
         "vet": "Candice",
-        "appointmentDate": "2023-12-18T00:00:00.999Z",
+        "appointmentDate": "18-12-2023",
         "appointmentTime": "4:00 PM",
         "appointmentText": "My cat doesn't want to eat."
       }

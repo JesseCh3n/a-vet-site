@@ -148,7 +148,8 @@ const datavets = [{
 
 const contactConfig = {
     YOUR_EMAIL: "jianxi_chen@hotmail.com",
-    description: "Looking forward to hearing from you!",
+    description: "We look after your pets!",
+    YOUR_PHONE: "+61 3 0000 1111",
     // creat an emailjs.com account 
     // check out this tutorial https://www.emailjs.com/docs/examples/reactjs/
     YOUR_SERVICE_ID: "SERVICE_ID",

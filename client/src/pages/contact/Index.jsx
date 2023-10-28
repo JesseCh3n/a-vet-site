@@ -3,65 +3,90 @@ import * as emailjs from "emailjs-com";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { meta } from "../../content_option.js";
-import { Container, Row, Col, Alert } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { contactConfig } from "../../content_option.js";
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../../utils/mutations';
+import { ADD_USER } from '../../utils/mutations';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+import Auth from '../../utils/auth';
 
 export const ContactUs = () => {
-  const [formData, setFormdata] = useState({
-    email: "",
-    name: "",
-    password: "",
-    loading: false,
-    show: false,
-    alertmessage: "",
-    variant: "",
-  });
+  //Login Form
+  const [form1State, setForm1State] = useState({ email: '', password: '' });
+  const [login] = useMutation(LOGIN_USER);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormdata({ loading: true });
+  const handleLoginChange = (event) => {
+    const { name, value } = event.target;
 
-    const templateParams = {
-      from_name: formData.email,
-      user_name: formData.name,
-      to_name: contactConfig.YOUR_EMAIL,
-      message: formData.message,
-    };
-
-    emailjs
-      .send(
-        contactConfig.YOUR_SERVICE_ID,
-        contactConfig.YOUR_TEMPLATE_ID,
-        templateParams,
-        contactConfig.YOUR_USER_ID
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setFormdata({
-            loading: false,
-            alertmessage: "SUCCESS! , please book an appointment with one of our vets.",
-            variant: "success",
-            show: true,
-          });
-        },
-        (error) => {
-          console.log(error.text);
-          setFormdata({
-            alertmessage: `Failed to send!,${error.text}`,
-            variant: "danger",
-            show: true,
-          });
-          document.getElementsByClassName("co_alert")[0].scrollIntoView();
-        }
-      );
+    setForm1State({
+      ...form1State,
+      [name]: value,
+    });
   };
 
-  const handleChange = (e) => {
-    setFormdata({
-      ...formData,
-      [e.target.name]: e.target.value,
+  const handleForm1Submit = async (event) => {
+    event.preventDefault();
+    console.log(form1State);
+    try {
+      const { data } = await login({
+        variables: { ...form1State },
+      });
+
+      Auth.login(data.login.token);   
+    } catch (e) {
+      console.error(e);
+    }
+
+    setForm1State({
+      email: '',
+      password: '',
     });
+  };
+
+  //Sign Up Form
+  const [form2State, setForm2State] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+  const [addUser] = useMutation(ADD_USER);
+
+  const handleSignupChange = (event) => {
+    const { name, value } = event.target;
+
+    setForm2State({
+      ...form2State,
+      [name]: value,
+    });
+  };
+
+  const handleForm2Submit = async (event) => {
+    event.preventDefault();
+    console.log(form2State);
+
+    try {
+      const { data } = await addUser({
+        variables: { ...form2State },
+      });
+
+      Auth.login(data.addUser.token);
+      return (
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="success">You are signed up!</Alert>
+        </Stack>
+      );
+    } catch (e) {
+      console.error(e);
+      return (
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="error">Incorrect details, please try again!</Alert>
+        </Stack>
+      );
+    }
   };
 
   return (
@@ -79,7 +104,7 @@ export const ContactUs = () => {
           </Col>
         </Row>
         <Row className="sec_sp">
-          <Col lg="14">
+          {/* <Col lg="14">
             <Alert
               //show={formData.show}
               variant={formData.variant}
@@ -91,7 +116,7 @@ export const ContactUs = () => {
             >
               <p className="my-0">{formData.alertmessage}</p>
             </Alert>
-          </Col>
+          </Col> */}
           <Col lg="4" className="mb-5">
             <h3 className="color_sec py-4">Get in touch</h3>
             <address>
@@ -100,6 +125,11 @@ export const ContactUs = () => {
                 {contactConfig.YOUR_EMAIL}
               </a>
               <br />
+              <strong>Contact Number:</strong>{" "}
+              <p>
+                {contactConfig.YOUR_PHONE}
+              </p>
+              <br />
             </address>
             <p>{contactConfig.description}</p>
           </Col>
@@ -107,36 +137,37 @@ export const ContactUs = () => {
         <Row className="sec_sp">
           <Col lg="4" className="mb-5 me-5">
             <h3 className="color_sec py-4">Sign In</h3>
-            <form onSubmit={handleSubmit} className="contact__form w-80">
+            <form onSubmit={handleForm1Submit} className="contact__form w-80">
                 <Row lg="6" className="form-group">
                   <input
                     className="form-control rounded-0"
-                    id="email"
+                    id="email1"
                     name="email"
                     placeholder="Email"
                     type="email"
-                    value={formData.email || ""}
+                    value={form1State.email || ""}
                     required
-                    onChange={handleChange}
+                    onChange={handleLoginChange}
                   />
                 </Row>
                 <Row lg="6" className="form-group">
                   <input
                     className="form-control rounded-0"
-                    id="password"
+                    id="password1"
                     name="password"
                     placeholder="Password"
-                    type="email"
-                    value={formData.password || ""}
+                    type="password"
+                    value={form1State.password || ""}
                     required
-                    onChange={handleChange}
+                    onChange={handleLoginChange}
                   />
                 </Row>
               <br />
               <Row>
                 <Col lg="12" className="form-group">
                   <button className="btn ac_btn" type="submit">
-                    {formData.loading ? "Sending..." : "Send"}
+                    Login
+                    {/* {formData.loading ? "Sending..." : "Send"} */}
                   </button>
                 </Col>
               </Row>
@@ -144,48 +175,61 @@ export const ContactUs = () => {
           </Col>
           <Col lg="4" className="mb-5 me-5">
           <h3 className="color_sec py-4">Sign Up</h3>
-            <form onSubmit={handleSubmit} className="contact__form w-80">
+            <form onSubmit={handleForm2Submit} className="contact__form w-80">
                 <Row lg="6" className="form-group">
                   <input
                     className="form-control"
-                    id="name"
-                    name="name"
-                    placeholder="Name"
-                    value={formData.name || ""}
+                    id="firstName"
+                    name="firstName"
+                    placeholder="First Name"
+                    value={form2State.firstName || ""}
                     type="text"
                     required
-                    onChange={handleChange}
+                    onChange={handleSignupChange}
+                  />
+                </Row>
+                <Row lg="6" className="form-group">
+                  <input
+                    className="form-control"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Last Name"
+                    value={form2State.lastName || ""}
+                    type="text"
+                    required
+                    onChange={handleSignupChange}
                   />
                 </Row>
                 <Row lg="6" className="form-group">
                   <input
                     className="form-control rounded-0"
-                    id="email"
+                    id="email2"
                     name="email"
                     placeholder="Email"
                     type="email"
-                    value={formData.email || ""}
+                    value={form2State.email || ""}
                     required
-                    onChange={handleChange}
+                    onChange={handleSignupChange}
                   />
                 </Row>
                 <Row lg="6" className="form-group">
                   <input
                     className="form-control rounded-0"
-                    id="password"
+                    id="password2"
                     name="password"
                     placeholder="Password"
                     type="password"
-                    value={formData.email || ""}
+                    value={form2State.password || ""}
                     required
-                    onChange={handleChange}
+                    onChange={handleSignupChange}
                   />
                 </Row>
               <br />
               <Row>
                 <Col lg="12" className="form-group">
                   <button className="btn ac_btn" type="submit">
-                    {formData.loading ? "Sending..." : "Send"}
+                    Submit
+                    {/* {formData.loading ? "Sending..." : "Send"} */}
                   </button>
                 </Col>
               </Row>
@@ -193,7 +237,7 @@ export const ContactUs = () => {
           </Col>
         </Row>
       </Container>
-      <div className={formData.loading ? "loading-bar" : "d-none"}></div>
+      {/* <div className={formData.loading ? "loading-bar" : "d-none"}></div> */}
     </HelmetProvider>
   );
 };

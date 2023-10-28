@@ -5,9 +5,14 @@ export default defineConfig({
     base: '',
     plugins: [react()],
     server: {    
-        // this ensures that the browser opens upon server start
+        port: 3000,
         open: true,
-        // this sets a default port to 3000  
-        port: 3000, 
+        proxy: {
+          '/graphql': {
+            target: 'http://localhost:3001',
+            secure: false,
+            changeOrigin: true
+          }
+        }
     },
 })

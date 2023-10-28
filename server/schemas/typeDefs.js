@@ -1,23 +1,20 @@
 const typeDefs = `
-  scalar Date
 
-  type MyType {
-    created: Date
-  }
-
-  input Appointment {
+  type Appointment {
     _id: ID
     vet: String
-    appointmentDate: Date
+    appointmentDate: String
     appointmentTime: String
     appointmentText: String
+  }
 
   type User {
     _id: ID
     firstName: String
     lastName: String
     email: String
-    orders: [Appointment]
+    password: String
+    appointments: [Appointment]
   }
 
   type Auth {
@@ -25,32 +22,40 @@ const typeDefs = `
     user: User
   }
 
-  type Query {
-    me: User
+  type Count {
+    count: Int!
   }
 
   type Query {
+    me: User
     users: [User]
+    checkUsers(
+      appDate: String!,
+      appTime: String!
+    ): Count
   }
 
 
   type Mutation {
     addUser(
-      firstName: String!
-      lastName: String!
-      email: String!
+      firstName: String!,
+      lastName: String!,
+      email: String!,
       password: String!
     ): Auth
     login(email: String!, password: String!): Auth
     addAppointment(
-      userId: ID!
-      appointmentData: Appointment!
+      userId: ID!,
+      vetData: String!,
+      appDate: String!,
+      appTime: String!,
+      appText: String!
     ): User
     updateAppointment(
-      userId: ID!
+      appointmentId: ID!,
       appointmentText: String!
     ): User
-    removeAppointment(userId: ID!): User
+    removeAppointment(appointmentId: ID!): User
   }
 `;
 
