@@ -22,7 +22,7 @@ export const Home = () => {
     console.log("hello there");
     setAlertdata({
       loading: false,
-      alertmessage: `Please login on "Contact" page to book an appointment !`,
+      alertmessage: `Please login to book an appointment !`,
       variant: "login",
       show: true,
     });
