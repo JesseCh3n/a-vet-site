@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Alert } from "react-bootstrap";
 import {
   meta,
 } from "../../content_option.js";
@@ -29,8 +29,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../../utils/queries';
@@ -44,7 +42,6 @@ import Auth from '../../utils/auth';
 function disableWeekends(date) {
   return getDay(date) === 0 || getDay(date) === 6;
 }
-
 
 class tableRow{
   constructor(id, appointmentDate, appointmentTime, appointmentText, vet) {
@@ -61,6 +58,13 @@ export const Booking = () => {
   const currentDate = new Date();
 
   const [rows, setRows] = useState([]);
+
+  const [alertData, setAlertdata] = useState({
+    loading: false,
+    show: false,
+    alertmessage: "",
+    variant: "",
+  });
 
   let initialRows = [];
 
@@ -117,32 +121,34 @@ export const Booking = () => {
       variables: { appDate: DateX, appTime: selectedTime },
     });
     console.log(data);
-    // console.log(data.checkUsers.count);
+    if (data) {
+      if (data.checkUsers.count > 0){
+        console.log(data.checkUsers.count);
+        // setAlertdata({
+        //   loading: false,
+        //   alertmessage: "This time slot is not available — please book another time!",
+        //   variant: "booked",
+        //   show: true,
+        // });
+        window.alert("This time slot is not available — please book another time!");
+      }
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('You clicked submit.');
 
-    const userX = Auth.getProfile().data._id;
-
-    // if (duplicate == 0) {
-    //     const { data } = addAppointment({
-    //       variables: { 
-    //         userId: userX, 
-    //         vetData: selectedVet, 
-    //         appDate: DateX, 
-    //         appTime: selectedTime,
-    //         appText: selectedText
-    //       },
-    //     });
-
-    //     if (data) {
-    //       window.location.reload();
-    //     }
-    // } else if (duplicate > 0) {
-    //   window.alert("This time slot is booked. Please try another one!");
-    // }
+    const { data } = addAppointment({
+      variables: { 
+        userId: Auth.getProfile().data._id, 
+        vetData: selectedVet, 
+        appDate: format(selectedDate, 'dd-MM-yyyy'), 
+        appTime: selectedTime,
+        appText: selectedText
+      },
+    });
+    window.location.reload();
   };
 
   const [rowModesModel, setRowModesModel] = useState({});
@@ -297,6 +303,19 @@ export const Booking = () => {
           <Col lg="8">
             <h1 className="display-4 mb-4">Booking</h1>
             <hr className="t_border my-4 ml-0 text-left" />
+          </Col>
+          <Col lg="12">
+            <Alert
+              //show={formData.show}
+              variant={alertData.variant}
+              className={`rounded-0 co_alert ${
+                alertData.show ? "d-block" : "d-none"
+              }`}
+              onClose={() => setAlertdata({ show: false })}
+              dismissible
+            >
+              <p className="my-0">{alertData.alertmessage}</p>
+            </Alert>
           </Col>
         </Row>
         <Row className="sec_sp">
