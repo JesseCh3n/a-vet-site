@@ -147,7 +147,7 @@ const datavets = [{
 ];
 
 const contactConfig = {
-    YOUR_EMAIL: "jianxi_chen@hotmail.com",
+    YOUR_EMAIL: "info@xvets.com",
     description: "We look after your pets!",
     YOUR_PHONE: "+61 3 0000 1111",
     // creat an emailjs.com account 
@@ -158,8 +158,9 @@ const contactConfig = {
 };
 
 const socialprofils = {
-    github: "https://github.com/JesseCh3n",
-    linkedin: "https://www.linkedin.com/in/jesse-chen-a3426a44/",
+    twitter: "https://twitter.com/AustVetAssoc",
+    linkedin: "https://www.linkedin.com/company/australian-veterinary-association/",
+    facebook: "https://www.facebook.com/AustralianVeterinaryAssoc/"
 };
 export {
     meta,

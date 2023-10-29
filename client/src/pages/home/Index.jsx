@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
 import { introdata, meta } from "../../content_option.js";
 import { Link } from "react-router-dom";
+import { Alert } from "react-bootstrap";
+
+import Auth from '../../utils/auth';
 
 export const Home = () => {
+
+  const [alertData, setAlertdata] = useState({
+    loading: false,
+    show: false,
+    alertmessage: "",
+    variant: "",
+  });
+
+  const handleAlert = (e) => {
+    e.preventDefault();
+    console.log("hello there");
+    setAlertdata({
+      loading: false,
+      alertmessage: `Please login on "Contact" page to book an appointment !`,
+      variant: "login",
+      show: true,
+    });
+    console.log(alertData.show);
+  }
+
   return (
     <HelmetProvider>
       <section id="home" className="home">
@@ -66,15 +89,44 @@ export const Home = () => {
                       <div className="ring three"></div>
                     </div>
                   </Link>
-                  <Link to="/booking">
+                  {Auth.loggedIn() ? (
+                    <Link to="/booking">
                     <div id="button_h" className="ac_btn btn">
                       Booking
                       <div className="ring one"></div>
                       <div className="ring two"></div>
                       <div className="ring three"></div>
                     </div>
-                  </Link>
+                    </Link>
+                  ) : (
+                    <> 
+                    <Link onClick={handleAlert}>
+                    <div id="button_h" className="ac_btn btn">
+                      Booking
+                      <div className="ring one"></div>
+                      <div className="ring two"></div>
+                      <div className="ring three"></div>
+                    </div>
+                    </Link>
+                    </> 
+                  )}
                 </div>
+                {Auth.loggedIn() ? (
+                  <p className="mb-1x">Welcome <strong>{Auth.getProfile().data.firstName}</strong>!</p>
+                ) : (
+                  <>
+                    <Alert
+                      variant={alertData.variant}
+                      className={`rounded-0 co_alert ${
+                        alertData.show ? "d-block" : "d-none"
+                      }`}
+                      onClose={() => setAlertdata({ show: false })}
+                      dismissible
+                    >
+                      <p className="my-0">{alertData.alertmessage}</p>
+                    </Alert>
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Row, Col, Container, Alert } from "react-bootstrap";
@@ -14,28 +14,19 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
-import {
-  GridRowModes,
-  DataGrid,
-  GridActionsCellItem,
-  GridRowEditStopReasons,
-} from '@mui/x-data-grid';
+import { GridRowModes, DataGrid, GridActionsCellItem, GridRowEditStopReasons } from '@mui/x-data-grid';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_ME } from '../../utils/queries';
-import { QUERY_CHECK_USER } from '../../utils/queries';
-import { ADD_APPOINTMENT } from '../../utils/mutations';
-import { UPDATE_APPOINTMENT } from '../../utils/mutations';
-import { REMOVE_APPOINTMENT } from '../../utils/mutations';
+import { QUERY_ME, QUERY_CHECK_USER } from '../../utils/queries';
+import { ADD_APPOINTMENT, UPDATE_APPOINTMENT, REMOVE_APPOINTMENT } from '../../utils/mutations';
 
 import Auth from '../../utils/auth';
 
@@ -43,6 +34,7 @@ function disableWeekends(date) {
   return getDay(date) === 0 || getDay(date) === 6;
 }
 
+//Define rows
 class tableRow{
   constructor(id, appointmentDate, appointmentTime, appointmentText, vet) {
     this.id = id;
@@ -53,6 +45,7 @@ class tableRow{
   }
 }
 
+//Export React component
 export const Booking = () => {
 
   const currentDate = new Date();
@@ -66,11 +59,11 @@ export const Booking = () => {
     variant: "",
   });
 
+  //Fetch data for rows
   let initialRows = [];
 
   const { loading, data } = useQuery(QUERY_ME);
   const userData = data?.me || [];
-
 
   useEffect(() => {
     if (data) {
@@ -88,39 +81,41 @@ export const Booking = () => {
       setRows(initialRows);
     }
   }, [userData]);
-
+  
+  //Handle date selection
   const [addAppointment, { error }] = useMutation(ADD_APPOINTMENT);
   const [selectedDate, setselectedDate] = useState(null);
   let DateX = "";
   if (selectedDate) {
     DateX = format(selectedDate, 'dd-MM-yyyy');
   }
-  console.log(DateX);
 
+  //Handle vet selection
   const [selectedVet, setselectedVet] = useState('');
 
   const handleVetChange = (event) => {
     setselectedVet(event.target.value);
   };
-  // console.log(selectedVet);
 
+  //Handle time slot selection
   const [selectedTime, setselectedTime] = useState('');
-  console.log(selectedTime);
 
   const handleTimeChange = (event) => {
     setselectedTime(event.target.value);
   };
 
+  //Handle appointment text input
   const [selectedText, setselectedText] = useState('');
   const handleTextChange = (event) => {
     setselectedText(event.target.value);
   };
 
+
+  //Check if the time slot is available
   if ((DateX != null) && (selectedTime != null)) {
     const { data } = useQuery(QUERY_CHECK_USER, {
       variables: { appDate: DateX, appTime: selectedTime },
     });
-    console.log(data);
     if (data) {
       if (data.checkUsers.count > 0){
         console.log(data.checkUsers.count);
@@ -131,13 +126,14 @@ export const Booking = () => {
         //   show: true,
         // });
         window.alert("This time slot is not available — please book another time!");
+        window.location.reload();
       }
     }
   }
-
+  
+  //Handle additions of new appointment
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('You clicked submit.');
 
     const { data } = addAppointment({
       variables: { 
@@ -151,6 +147,7 @@ export const Booking = () => {
     window.location.reload();
   };
 
+  //Handle existing appointment editing.
   const [rowModesModel, setRowModesModel] = useState({});
 
   const handleRowEditStop = (params, event) => {
@@ -162,18 +159,17 @@ export const Booking = () => {
   const handleEditClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     setRows(rows);
-    console.log(rows);
   };
 
   const handleSaveClick = (id) => async () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
-
+  
+  //Handle appointment removal
   const [removeAppointment] = useMutation(REMOVE_APPOINTMENT);
 
   const handleDeleteClick = (id) => async () => {
     setRows(rows.filter((row) => row.id !== id));
-    console.log(id);
     try {
       const { data } = await removeAppointment({
         variables: { appointmentId: id },
@@ -195,26 +191,23 @@ export const Booking = () => {
     }
   };
 
+  //Handle appointment update
   const [updateAppointment] = useMutation(UPDATE_APPOINTMENT);
 
   const processRowUpdate = (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
     const appText = updatedRow.appointmentText;
     const appId = updatedRow.id;
-    console.log(appText);
-    console.log(appId);
-    console.log(typeof(appId));
 
     const { data } = updateAppointment({
       variables: { appointmentId: appId, appointmentText: appText },
     });
-    console.log(data);
 
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
   };
 
-
+  //Define columns
   const columns = [
     {
       field: 'appointmentDate',

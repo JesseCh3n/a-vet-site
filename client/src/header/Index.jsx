@@ -4,9 +4,29 @@ import { VscGrabber, VscClose } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { logotext ,socialprofils } from "../content_option.js";
 import Themetoggle from "../components/themetoggle";
+import { Alert } from "react-bootstrap";
+
+import Auth from '../utils/auth';
 
 const Headermain = () => {
   const [isActive, setActive] = useState("false");
+
+  const [alertData, setAlertdata] = useState({
+    loading: false,
+    show: false,
+    alertmessage: "",
+    variant: "",
+  });
+
+  const handleAlert = (e) => {
+    e.preventDefault();
+    setAlertdata({
+      loading: false,
+      alertmessage: `Please login on "Contact" page to book an appointment !`,
+      variant: "login",
+      show: true,
+    });
+  }
 
   const handleToggle = () => {
     setActive(!isActive);
@@ -47,7 +67,26 @@ const Headermain = () => {
                     <Link onClick={handleToggle} to="/contact" className="my-3">Contact Us</Link>
                   </li>
                   <li className="menu_item">
-                    <Link onClick={handleToggle} to="/booking" className="my-3">Booking</Link>
+                    {Auth.loggedIn() ? (
+                      <>
+                      <Link onClick={handleToggle} to="/booking" className="my-3">Booking</Link>
+                      </>
+                    ) : (
+                      <> 
+                      <Link onClick={handleAlert} to="/contact" className="my-3">Booking</Link> 
+                      <Alert
+                        //show={formData.show}
+                        variant={alertData.variant}
+                        className={`rounded-0 co_alert ${
+                          alertData.show ? "d-block" : "d-none"
+                        }`}
+                        onClose={() => setAlertdata({ show: false })}
+                        dismissible
+                      >
+                        <p className="my-0">{alertData.alertmessage}</p>
+                      </Alert>
+                      </> 
+                    )}
                   </li>
                 </ul>
               </div>

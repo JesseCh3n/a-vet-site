@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import * as emailjs from "emailjs-com";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { meta } from "../../content_option.js";
 import { Container, Row, Col } from "react-bootstrap";
 import { contactConfig } from "../../content_option.js";
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../../utils/mutations';
-import { ADD_USER } from '../../utils/mutations';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+import { LOGIN_USER, ADD_USER } from '../../utils/mutations';
 
 import Auth from '../../utils/auth';
 
@@ -74,19 +70,15 @@ export const ContactUs = () => {
       });
 
       Auth.login(data.addUser.token);
-      return (
-        <Stack sx={{ width: '100%' }} spacing={2}>
-          <Alert severity="success">You are signed up!</Alert>
-        </Stack>
-      );
     } catch (e) {
       console.error(e);
-      return (
-        <Stack sx={{ width: '100%' }} spacing={2}>
-          <Alert severity="error">Incorrect details, please try again!</Alert>
-        </Stack>
-      );
     }
+  };
+
+  //Logout button
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
   };
 
   return (
@@ -104,19 +96,6 @@ export const ContactUs = () => {
           </Col>
         </Row>
         <Row className="sec_sp">
-          {/* <Col lg="14">
-            <Alert
-              //show={formData.show}
-              variant={formData.variant}
-              className={`rounded-0 co_alert ${
-                formData.show ? "d-block" : "d-none"
-              }`}
-              onClose={() => setFormdata({ show: false })}
-              dismissible
-            >
-              <p className="my-0">{formData.alertmessage}</p>
-            </Alert>
-          </Col> */}
           <Col lg="4" className="mb-5">
             <h3 className="color_sec py-4">Get in touch</h3>
             <address>
@@ -135,6 +114,19 @@ export const ContactUs = () => {
           </Col>
         </Row>
         <Row className="sec_sp">
+        <div>
+
+        </div>
+        {Auth.loggedIn() ? (
+          <>
+          <Col lg="12" className="form-group">
+            <button className="btn ac_btn" onClick={logout}>
+              Logout
+            </button>
+          </Col>
+          </>
+        ) : (
+          <>
           <Col lg="4" className="mb-5 me-5">
             <h3 className="color_sec py-4">Sign In</h3>
             <form onSubmit={handleForm1Submit} className="contact__form w-80">
@@ -167,7 +159,6 @@ export const ContactUs = () => {
                 <Col lg="12" className="form-group">
                   <button className="btn ac_btn" type="submit">
                     Login
-                    {/* {formData.loading ? "Sending..." : "Send"} */}
                   </button>
                 </Col>
               </Row>
@@ -235,6 +226,8 @@ export const ContactUs = () => {
               </Row>
             </form>
           </Col>
+          </>
+        )}
         </Row>
       </Container>
       {/* <div className={formData.loading ? "loading-bar" : "d-none"}></div> */}
