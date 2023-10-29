@@ -110,13 +110,15 @@ export const ContactUs = () => {
               </p>
               <br />
             </address>
-            <p>{contactConfig.description}</p>
+            <p><strong>{contactConfig.description}</strong></p>
+          </Col>
+          <Col lg="4" className="mb-5">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.132930712171!2d144.96066007664038!3d-37.81035523384443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642cae0ac1119%3A0x1d1c85547777b9!2s211%20La%20Trobe%20St%2C%20Melbourne%20VIC%203000!5e0!3m2!1sen!2sau!4v1698565336586!5m2!1sen!2sau" 
+          width="400" height="250" loading="lazy" referrerPolicy="no-referrer-when-downgrade">
+          </iframe>
           </Col>
         </Row>
         <Row className="sec_sp">
-        <div>
-
-        </div>
         {Auth.loggedIn() ? (
           <>
           <Col lg="12" className="form-group">
