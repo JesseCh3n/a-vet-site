@@ -14,14 +14,13 @@ const resolvers = {
 
       throw AuthenticationError;
     },
-    users: async (parent, {today}, context) => {
-      if (context.user) {
-        const users = await User.find({'appointments.appointmentDate' : today});
-
+    getUsers: async (parent, args, context) => {
+      // if (context.user) {
+        const users = await User.find();
         return users;
-      }
+      // }
 
-      throw AuthenticationError;
+      // throw AuthenticationError;
     },
     checkUsers: async (parent, {appDate, appTime}, context) => {
       // if (context.user) {

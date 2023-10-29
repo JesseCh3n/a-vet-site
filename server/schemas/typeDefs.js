@@ -28,7 +28,7 @@ const typeDefs = `
 
   type Query {
     me: User
-    users: [User]
+    getUsers: [User]
     checkUsers(
       appDate: String!,
       appTime: String!

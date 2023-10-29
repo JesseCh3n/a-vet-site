@@ -20,7 +20,7 @@ export const QUERY_ME = gql`
 
 export const QUERY_USERS = gql`
   query getUsers {
-    users {
+    getUsers {
       _id
       firstName
       lastName

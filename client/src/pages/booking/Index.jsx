@@ -119,17 +119,37 @@ export const Booking = () => {
     if (data) {
       if (data.checkUsers.count > 0){
         console.log(data.checkUsers.count);
-        // setAlertdata({
-        //   loading: false,
-        //   alertmessage: "This time slot is not available — please book another time!",
-        //   variant: "booked",
-        //   show: true,
-        // });
         window.alert("This time slot is not available — please book another time!");
+        console.log(alertData.show)
+
         window.location.reload();
       }
     }
   }
+  // let checked = "";
+  // if ((DateX != null) && (selectedTime != null)) {
+  //   const { data } = useQuery(QUERY_CHECK_USER, {
+  //     variables: { appDate: DateX, appTime: selectedTime },
+  //   });
+  //   checked = data; 
+  //   console.log(checked);
+  // }
+  // useEffect(() => {
+  //     if (selectedTime) {
+  //       if (checked.checkUsers.count > 0){
+  //         console.log(checked.checkUsers.count);
+  //         setAlertdata({
+  //           loading: false,
+  //           alertmessage: "This time slot is not available — please book another time!",
+  //           variant: "booked",
+  //           show: true,
+  //         });
+  //         console.log(alertData.show)
+  //         // window.alert("This time slot is not available — please book another time!");
+  //         // window.location.reload();
+  //       }
+  //     }
+  // }, [selectedTime])
   
   //Handle additions of new appointment
   const handleSubmit = (e) => {
@@ -299,12 +319,14 @@ export const Booking = () => {
           </Col>
           <Col lg="12">
             <Alert
-              //show={formData.show}
               variant={alertData.variant}
               className={`rounded-0 co_alert ${
                 alertData.show ? "d-block" : "d-none"
               }`}
-              onClose={() => setAlertdata({ show: false })}
+              onClose={() => {
+                setAlertdata({ show: false });
+                window.location.reload();
+              }}
               dismissible
             >
               <p className="my-0">{alertData.alertmessage}</p>
