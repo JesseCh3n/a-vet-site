@@ -52,8 +52,6 @@ export const Today = () => {
     variables: { today : currentDate},
   });
   const usersData = data?.getUsers || [];
-  console.log(data);
-  console.log(usersData);
 
   useEffect(() => {
     if (usersData) {
@@ -109,7 +107,10 @@ export const Today = () => {
                 {rows.map((row) => (
                   <TableRow
                     key={row.appointmentTime}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{ 
+                      '&:last-child td, &:last-child th': { border: 0 },
+                      fontWeight: 'bold', 
+                    }}
                   >
                     <TableCell component="th" scope="row">
                       {row.appointmentTime}

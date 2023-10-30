@@ -8,7 +8,6 @@ import { Alert } from "react-bootstrap";
 
 import Auth from '../utils/auth';
 
-console.log(Auth.getProfile().data.isAdmin);
 
 const Headermain = () => {
   const [isActive, setActive] = useState("false");
@@ -91,9 +90,16 @@ const Headermain = () => {
                     )}
                   </li>
                   <li className="menu_item">
-                    {Auth.getProfile().data.isAdmin ? (
+                    {Auth.loggedIn() ? (
                       <>
-                        <Link onClick={handleToggle} to="/today" className="my-3">Today's Appointments</Link>
+                        {Auth.getProfile().data.isAdmin ? (
+                          <>
+                            <Link onClick={handleToggle} to="/today" className="my-3">Today's Appointments</Link>
+                          </>
+                        ) : (
+                          <>
+                          </>
+                        )}
                       </>
                     ) : (
                       <>

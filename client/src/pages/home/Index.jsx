@@ -19,14 +19,12 @@ export const Home = () => {
 
   const handleAlert = (e) => {
     e.preventDefault();
-    console.log("hello there");
     setAlertdata({
       loading: false,
       alertmessage: `Please login to book an appointment !`,
       variant: "login",
       show: true,
     });
-    console.log(alertData.show);
   }
 
   return (

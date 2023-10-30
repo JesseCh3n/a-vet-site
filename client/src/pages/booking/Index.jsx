@@ -112,46 +112,27 @@ export const Booking = () => {
 
 
   //Check if the time slot is available
+  let checked = false;
   if ((DateX != null) && (selectedTime != null)) {
     const { data } = useQuery(QUERY_CHECK_USER, {
       variables: { appDate: DateX, appTime: selectedTime },
     });
     if (data) {
-      if (data.checkUsers.count > 0){
-        console.log(data.checkUsers.count);
-        window.alert("This time slot is not available — please book another time!");
-        console.log(alertData.show)
-
-        window.location.reload();
-      }
+      checked = (data.checkUsers.count > 0);
     }
   }
-  // let checked = "";
-  // if ((DateX != null) && (selectedTime != null)) {
-  //   const { data } = useQuery(QUERY_CHECK_USER, {
-  //     variables: { appDate: DateX, appTime: selectedTime },
-  //   });
-  //   checked = data; 
-  //   console.log(checked);
-  // }
-  // useEffect(() => {
-  //     if (selectedTime) {
-  //       if (checked.checkUsers.count > 0){
-  //         console.log(checked.checkUsers.count);
-  //         setAlertdata({
-  //           loading: false,
-  //           alertmessage: "This time slot is not available — please book another time!",
-  //           variant: "booked",
-  //           show: true,
-  //         });
-  //         console.log(alertData.show)
-  //         // window.alert("This time slot is not available — please book another time!");
-  //         // window.location.reload();
-  //       }
-  //     }
-  // }, [selectedTime])
   
   //Handle additions of new appointment
+  const handleAlert = (e) => {
+    e.preventDefault();
+    setAlertdata({
+      loading: false,
+      alertmessage: "This time slot is not available — please book another time!",
+      variant: "booked",
+      show: true,
+    });
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -414,7 +395,15 @@ export const Booking = () => {
           </Box>
           </Col>
           <Col lg="4" className="d-flex align-items-center justify-content-center">
-            <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
+            {checked ? (
+              <>
+                <Button variant="outlined" onClick={handleAlert}>Submit</Button>
+              </>
+            ) : (
+              <>
+                <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
+              </>
+            )}
           </Col>
         </Row>
         <Row className="sec_sp">
@@ -428,6 +417,7 @@ export const Booking = () => {
               '& .textPrimary': {
                 color: 'text.primary',
               },
+              fontWeight: 'bold',
             }}
           >
             <DataGrid
