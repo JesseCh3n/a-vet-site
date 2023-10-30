@@ -33,55 +33,55 @@ const dataabout3 = {
     aboutme: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
 };
 
-const worktimeline = [{
-        jobtitle: "Control Engineer",
-        where: "A banknote printing place",
-        date: "2022",
-    },
-    {
-        jobtitle: "Instrumentation Engineer",
-        where: "A vaccine maker",
-        date: "2020",
-    },
-    {
-        jobtitle: "Electrical Engineer",
-        where: "A famous aircraft manufacturer",
-        date: "2014",
-    },
-];
+// const worktimeline = [{
+//         jobtitle: "Control Engineer",
+//         where: "A banknote printing place",
+//         date: "2022",
+//     },
+//     {
+//         jobtitle: "Instrumentation Engineer",
+//         where: "A vaccine maker",
+//         date: "2020",
+//     },
+//     {
+//         jobtitle: "Electrical Engineer",
+//         where: "A famous aircraft manufacturer",
+//         date: "2014",
+//     },
+// ];
 
-const skills = [{
-        name: "C",
-    },
+// const skills = [{
+//         name: "C",
+//     },
     
-    {
-        name: "JavaScript",
-    },
+//     {
+//         name: "JavaScript",
+//     },
     
-    {
-        name: "HTML/CSS",
-    },
+//     {
+//         name: "HTML/CSS",
+//     },
     
-    {
-        name: "Bash",
-    },
+//     {
+//         name: "Bash",
+//     },
 
-    {
-        name: "Reverse Engineering",
-    },
+//     {
+//         name: "Reverse Engineering",
+//     },
 
-    {
-        name: "Google Engineering",
-    },
+//     {
+//         name: "Google Engineering",
+//     },
 
-    {
-        name: "Web-Exploitation",
-    },
+//     {
+//         name: "Web-Exploitation",
+//     },
 
-    {
-        name: "Earth-Exploration",
-    },
-];
+//     {
+//         name: "Earth-Exploration",
+//     },
+// ];
 
 const datavets = [{
         img: "./src/PictoHang.png",
@@ -168,8 +168,8 @@ export {
     dataabout2,
     dataabout3,
     datavets,
-    worktimeline,
-    skills,
+    // worktimeline,
+    // skills,
     introdata,
     contactConfig,
     socialprofils,

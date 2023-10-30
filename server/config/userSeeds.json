@@ -1,5 +1,13 @@
 [
   {
+    "firstName": "Admin",
+    "lastName": "XVets",
+    "email": "admin@xvets123.com",
+    "password": "xvets123",
+    "isAdmin": true,
+    "appointments": []
+  },
+  {
     "firstName": "Brian",
     "lastName": "Kernighan",
     "email": "bkernighan@techfriends.dev",
@@ -20,10 +28,10 @@
     "password": "password02",
     "appointments": [
       {
-        "vet": "Suki",
-        "appointmentDate": "21-12-2023",
+        "vet": "Sarah",
+        "appointmentDate": "02-11-2023",
         "appointmentTime": "2:30 PM",
-        "appointmentText": "Rocky is having a fever."
+        "appointmentText": "My cat keeps scratching her face."
       }
     ]
   },
@@ -35,7 +43,7 @@
     "appointments": [
       {
         "vet": "Candice",
-        "appointmentDate": "21-12-2023",
+        "appointmentDate": "02-11-2023",
         "appointmentTime": "8:30 AM",
         "appointmentText": "My dog keeps puking."
       },
@@ -77,7 +85,7 @@
         "vet": "Michael",
         "appointmentDate": "21-11-2023",
         "appointmentTime": "10:00 AM",
-        "appointmentText": "My cat is pregnant."
+        "appointmentText": "My cat is losing hair."
       }
     ]
   },
@@ -89,7 +97,7 @@
     "appointments": [
       {
         "vet": "Michael",
-        "appointmentDate": "21-11-2023",
+        "appointmentDate": "02-11-2023",
         "appointmentTime": "12:00 PM",
         "appointmentText": "My cat is pregnant."
       }
@@ -102,7 +110,7 @@
     "password": "password08",
     "appointments": [
       {
-        "vet": "Suki",
+        "vet": "Sarah",
         "appointmentDate": "28-12-2023",
         "appointmentTime": "2:00 PM",
         "appointmentText": "My cat has fever."
@@ -126,6 +134,62 @@
         "appointmentDate": "18-12-2023",
         "appointmentTime": "4:00 PM",
         "appointmentText": "My cat doesn't want to eat."
+      }
+    ]
+  },
+  {
+    "firstName": "Joe",
+    "lastName": "Vrbetic",
+    "email": "joe@vrbetic.com",
+    "password": "iamfat123",
+    "appointments": [
+      {
+        "vet": "Michael",
+        "appointmentDate": "02-11-2023",
+        "appointmentTime": "10:00 AM",
+        "appointmentText": "My puppy is having difficulties breathing."
+      }
+    ]
+  },
+  {
+    "firstName": "John",
+    "lastName": "Newbie",
+    "email": "john@newbie123.com",
+    "password": "newbie123",
+    "appointments": [
+      {
+        "vet": "Sarah",
+        "appointmentDate": "02-11-2023",
+        "appointmentTime": "2:00 PM",
+        "appointmentText": "My dog doesn't want to eat."
+      }
+    ]
+  },
+  {
+    "firstName": "Hanah",
+    "lastName": "Johnson",
+    "email": "hanah@johnson123.com",
+    "password": "johnson123",
+    "appointments": [
+      {
+        "vet": "Candice",
+        "appointmentDate": "02-11-2023",
+        "appointmentTime": "4:00 PM",
+        "appointmentText": "My dog is scratching his head."
+      }
+    ]
+  },
+  {
+    "firstName": "Amy",
+    "lastName": "Dee",
+    "email": "amy@dee1234.com",
+    "password": "dee1234",
+    "appointments": [
+      {
+        "vet": "Candice",
+        "appointmentDate": "02-11-2023",
+        "appointmentTime": "9:00 AM",
+        "appointmentText": "I don't know what's wrong with my dog, he keeps barking at night."
       }
     ]
   }

@@ -19,8 +19,12 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_USERS = gql`
-  query getUsers {
-    getUsers {
+  query getUsers(
+    $today: String!
+  ) {
+    getUsers(
+      today: $today
+    ) {
       _id
       firstName
       lastName

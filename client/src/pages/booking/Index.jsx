@@ -394,7 +394,7 @@ export const Booking = () => {
               label="Vet"
             >
               <MenuItem value={"Michael"}>Michael</MenuItem>
-              <MenuItem value={"Suki"}>Suki</MenuItem>
+              <MenuItem value={"Sarah"}>Sarah</MenuItem>
               <MenuItem value={"Candice"}>Candice</MenuItem>
             </Select>
           </FormControl>

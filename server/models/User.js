@@ -25,6 +25,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   appointments: [
     {
       vet: {
