@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./style.css";
+import "./Style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { meta } from "../../content_option.js";
 import { Container, Row, Col } from "react-bootstrap";

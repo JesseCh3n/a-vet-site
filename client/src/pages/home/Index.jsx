@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./style.css";
+import "./Style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
 import { introdata, meta } from "../../content_option.js";
