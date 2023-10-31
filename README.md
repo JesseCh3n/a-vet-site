@@ -21,7 +21,7 @@ N/A
 ## Usage
 
 You can view my porfolio via this [link](https://sparkly-haupia-f8437d.netlify.app/).
-![alt screenshot](./Webpage.PNG)
+![alt screenshot](./image.jpg)
 
 ## Credits
 
