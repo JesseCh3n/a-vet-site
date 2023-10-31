@@ -1,5 +1,5 @@
    <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               version="1.1"
               width="2em"
               height="2em"
@@ -8,7 +8,7 @@
               viewBox="0 0 512 512"
             >
               <g>
-                <g xmlns="http://www.w3.org/2000/svg">
+                <g xmlns="https://www.w3.org/2000/svg">
                   <g>
                     <circle
                       cx="256"
