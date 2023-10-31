@@ -110,6 +110,14 @@ export const Booking = () => {
     setselectedText(event.target.value);
   };
 
+  //Check if all data have been enterred.
+  let dataFilled = false;
+  if ((selectedDate == null) || (selectedVet == "") || (selectedTime == "") || (selectedText == "")) {
+    dataFilled = false;
+  } else {
+    dataFilled = true;
+  }
+
 
   //Check if the time slot is available
   let checked = false;
@@ -123,12 +131,22 @@ export const Booking = () => {
   }
   
   //Handle additions of new appointment
-  const handleAlert = (e) => {
+  const handleAlert1 = (e) => {
     e.preventDefault();
     setAlertdata({
       loading: false,
       alertmessage: "This time slot is not available — please book another time!",
       variant: "booked",
+      show: true,
+    });
+  }
+
+  const handleAlert2 = (e) => {
+    e.preventDefault();
+    setAlertdata({
+      loading: false,
+      alertmessage: "Please fill out all required fields!",
+      variant: "unfilled",
       show: true,
     });
   }
@@ -395,15 +413,24 @@ export const Booking = () => {
           </Box>
           </Col>
           <Col lg="4" className="d-flex align-items-center justify-content-center">
-            {checked ? (
+            {dataFilled ? (
               <>
-                <Button variant="outlined" onClick={handleAlert}>Submit</Button>
+                {checked ? (
+                  <>
+                    <Button variant="outlined" onClick={handleAlert1}>Submit</Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
+                  </>
+                )}
               </>
             ) : (
               <>
-                <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
+                <Button variant="outlined" onClick={handleAlert2}>Submit</Button>
               </>
             )}
+
           </Col>
         </Row>
         <Row className="sec_sp">
