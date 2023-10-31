@@ -7,142 +7,102 @@ const meta = {
 const introdata = {
     title: `Hi, Welcome to ${meta.title}`,
     animated: {
-        first: "General Consulting",
-        second: "Desexing",
+        first: "Pet Consultation",
+        second: "Vaccination",
         third: "General Surgery",
-        fourth: "Specialist Surgery",
-        fifth: "Animal Dental",
-        sixth: "Grooming"
+        fourth: "Dental Care",
+        fifth: "Dental Care",
+        sixth: "General Vet Care"
     },
     description: "Dedicated vets with more than 50 years of experience.",
     your_img_url: "./src/me.jpg",
 };
 
 const dataabout1 = {
-    title: "General Consulting",
-    aboutme: "We provide general consult cares to all domestic animals",
+    title: "Pet Consultation",
+    aboutme: "We offer a wide range of consultation from general health checks to unexpected illnesses",
 };
 
 const dataabout2 = {
-    title: "Surgery",
-    aboutme: "We provide surgeries such as spay or castration",
+    title: "Vaccination",
+    aboutme: "Vaccinations play a crucial part in protecting your precious pet. We believe prevention is better than cure.",
 };
 
 const dataabout3 = {
-    title: "Special treatment",
-    aboutme: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
+    title: "Microchipping",
+    aboutme: "Microchipping and registration service is offered at our clinic. We use Central Animal Records for microchipping.",
 };
 
-// const worktimeline = [{
-//         jobtitle: "Control Engineer",
-//         where: "A banknote printing place",
-//         date: "2022",
-//     },
-//     {
-//         jobtitle: "Instrumentation Engineer",
-//         where: "A vaccine maker",
-//         date: "2020",
-//     },
-//     {
-//         jobtitle: "Electrical Engineer",
-//         where: "A famous aircraft manufacturer",
-//         date: "2014",
-//     },
-// ];
+const dataabout4 = {
+    title: "Dental Care",
+    aboutme: "Dental disease is one of the most common disease in dogs and cats. If you think about it, we humans usually brush our teeth twice daily. We recommend teeth brushing for our pets too.",
+};
 
-// const skills = [{
-//         name: "C",
-//     },
-    
-//     {
-//         name: "JavaScript",
-//     },
-    
-//     {
-//         name: "HTML/CSS",
-//     },
-    
-//     {
-//         name: "Bash",
-//     },
-
-//     {
-//         name: "Reverse Engineering",
-//     },
-
-//     {
-//         name: "Google Engineering",
-//     },
-
-//     {
-//         name: "Web-Exploitation",
-//     },
-
-//     {
-//         name: "Earth-Exploration",
-//     },
-// ];
+const dataabout5 = {
+    title: "Surgery",
+    aboutme: "We are fully equipped with the anesthesia monitoring and surgical equipment, and our staff provide full care during the process, so we could provide a wide range of surgeries.",
+};
 
 const datavets = [{
-        img: "./src/PictoHang.png",
-        description: "A fun cross between Pictionary and Hangman.",
-        link: "https://sleepyhaha.github.io/team-samsung/",
+        img: "./src/tiger.jpg",
+        description: "Michael is the practice owner and Principal Veterinarian. His eagerness to serve and dedication to all animals is well known to his clients. .",
+        name: "Michael",
     },
     {
-        img: "./src/EntertainmentReview.png",
-        description: "A comprehensive and user-friendly space for entertainment lovers to come together and share their thoughts.",
-        link: "https://evening-cove-52840-9f06a2ce0b05.herokuapp.com/",
+        img: "./src/cat1.jpg",
+        description: "Sarah grew up on a farm and has worked in small animal practices for many years and has a load of experience on varieties of medical and surgical conditions.",
+        name: "Sarah",
     },
     {
-        img: "https://picsum.photos/400/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/cat2.jpg",
+        description: "Candice graduated from Melbourne University. Anna is very welcoming and holistic in her approach to providing quality care for family pets.",
+        name: "Candice",
     },
     {
-        img: "https://picsum.photos/400/600/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/dogpuppy.jpg",
+        description: "A dedicated receptionist who takes customers' need as No.1 priority.",
+        name: "Cathy",
     },
     {
-        img: "https://picsum.photos/400/300/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/dog1.jpg",
+        description: "A vet nurse with over 10 years of experience. He has good attention to detail",
+        name: "Brad",
     },
     {
-        img: "https://picsum.photos/400/700/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/dog3.jpg",
+        description: " She moved to Melbourne in 2020. She is a qualified Veterinary Nurse who loves surgery.",
+        name: "Michelle",
     },
 
     {
-        img: "https://picsum.photos/400/600/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/cat3.jpg",
+        description: "She immigrated from Korea and settled down in our clinic as an energetic Veterinary Nurse.",
+        name: "Felicia",
     },
     {
-        img: "https://picsum.photos/400/300/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/dog4.jpg",
+        description: "A part time Veterinary Nurse and a full time mum, she looks after all animals with dedications.",
+        name: "Amy",
     },
     {
-        img: "https://picsum.photos/400/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/cat4.jpg",
+        description: "She is our trainee Vet, she has a passion for animals",
+        name: "Brooke",
     },
     {
-        img: "https://picsum.photos/400/550/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/dog2.jpg",
+        description: "Retired Vet, who occationally helps us.",
+        name: "Grant",
     },
     {
-        img: "https://picsum.photos/400/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/dog5.jpg",
+        description: "An experienced receptionist.",
+        name: "Carla",
     },
     {
-        img: "https://picsum.photos/400/700/?grayscale",
-        description: "If you want to fly on the sky, you need to leave the earth.",
-        link: "#",
+        img: "./src/dog6.jpg",
+        description: "Dedicated Veterinary Nurse who goes above and beyond to help our customers.",
+        name: "Ange",
     },
 ];
 
@@ -150,8 +110,6 @@ const contactConfig = {
     YOUR_EMAIL: "info@xvets.com",
     description: "We look after your pets!",
     YOUR_PHONE: "+61 3 0000 1111",
-    // creat an emailjs.com account 
-    // check out this tutorial https://www.emailjs.com/docs/examples/reactjs/
     YOUR_SERVICE_ID: "SERVICE_ID",
     YOUR_TEMPLATE_ID: "TEMPLATE_ID",
     YOUR_USER_ID: "USER_ID (PUBLIC_KEY)",
@@ -167,9 +125,9 @@ export {
     dataabout1,
     dataabout2,
     dataabout3,
+    dataabout4,
+    dataabout5,
     datavets,
-    // worktimeline,
-    // skills,
     introdata,
     contactConfig,
     socialprofils,

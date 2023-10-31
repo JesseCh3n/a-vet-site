@@ -6,6 +6,8 @@ import {
   dataabout1,
   dataabout2,
   dataabout3,
+  dataabout4,
+  dataabout5,
   meta,
 } from "../../content_option.js";
 
@@ -51,6 +53,26 @@ export const Services = () => {
           <Col lg="7" className="d-flex align-items-center">
             <div>
               <p>{dataabout3.aboutme}</p>
+            </div>
+          </Col>
+        </Row>
+        <Row className="sec_sp">
+          <Col lg="5">
+            <h3 className="color_sec py-4">{dataabout4.title}</h3>
+          </Col>
+          <Col lg="7" className="d-flex align-items-center">
+            <div>
+              <p>{dataabout4.aboutme}</p>
+            </div>
+          </Col>
+        </Row>
+        <Row className="sec_sp">
+          <Col lg="5">
+            <h3 className="color_sec py-4">{dataabout5.title}</h3>
+          </Col>
+          <Col lg="7" className="d-flex align-items-center">
+            <div>
+              <p>{dataabout5.aboutme}</p>
             </div>
           </Col>
         </Row>

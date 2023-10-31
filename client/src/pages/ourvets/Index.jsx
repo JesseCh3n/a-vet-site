@@ -25,8 +25,8 @@ export const OurVets = () => {
               <div key={i} className="po_item">
                 <img src={data.img} alt="" />
                 <div className="content">
-                  <p>{data.description}</p>
-                  <a href={data.link}>view our vets</a>
+                  <p className="data">{data.description}</p>
+                  <p className="name">{data.name}</p>
                 </div>
               </div>
             );

@@ -67,7 +67,7 @@
     color: var(--secondary-color);
 }
 
-.po_item .content a {
+.po_item .content .name {
     background: var(--bg-color);
     border: solid 1px var(--text-color);
     padding: 4px 8px;
@@ -75,6 +75,6 @@
     font-size: 1rem;
 }
 
-.po_item .content a:hover {
-    text-decoration: none;
+.po_item .content .data {
+    color: #FF004C;
 }
