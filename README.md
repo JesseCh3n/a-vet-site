@@ -42,7 +42,6 @@ Our platform is dedicated to providing an informative, interactive and user-frie
 
 The website provides comprehensive and up-to-date information about staffs' expertise and general advise on animal treatment.
 
-
 ### 2. User Booking
 
 Create your account and book your appointment! You can edit or delete any existing booking while you have the visibility of all your booking history.
@@ -89,7 +88,6 @@ Credit to examples provided by Coding Bootcamp. React templates are based on thi
 ## License
 - [MIT](https://opensource.org/licenses/MIT)
 - `Copyright © 2023 Jesse Chen`
-
 
 ## Contribution Guidelines
 ```

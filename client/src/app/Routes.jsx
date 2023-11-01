@@ -10,6 +10,8 @@ import { Today } from "../pages/today/Index.jsx";
 import Socialicons from "../components/Socialicons.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
+import Auth from '../utils/auth.js';
+
 const AnimatedRoutes = () => {
   let location = useLocation();
   return (
@@ -28,8 +30,29 @@ const AnimatedRoutes = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/ourvets" element={<OurVets />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/today" element={<Today />} />
+          {Auth.loggedIn() ? (
+            <>
+            <Route path="/booking" element={<Booking />} />
+            </>
+          ) : (
+            <>
+            </>
+          )}
+          {Auth.loggedIn() ? (
+            <>
+            {Auth.getProfile().data.isAdmin ? (
+              <>
+              <Route path="/today" element={<Today />} />
+              </>
+            ) : (
+              <>
+              </>
+            )}
+            </>
+          ) : (
+            <>
+            </>
+          )}
           <Route path="*" element={<Home />} />
         </Routes>
       </CSSTransition>

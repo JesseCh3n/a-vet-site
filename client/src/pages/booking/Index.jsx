@@ -77,7 +77,7 @@ export const Booking = () => {
         );
         initialRows = [...initialRows, tableData];
       }
-      console.log(initialRows);
+      // console.log(initialRows);
       setRows(initialRows);
     }
   }, [userData]);
@@ -120,13 +120,13 @@ export const Booking = () => {
 
 
   //Check if the time slot is available
-  let checked = false;
+  let noAvail = false;
   if ((DateX != null) && (selectedTime != null)) {
     const { data } = useQuery(QUERY_CHECK_USER, {
       variables: { appDate: DateX, appTime: selectedTime },
     });
     if (data) {
-      checked = (data.checkUsers.count > 0);
+      noAvail = (data.checkUsers.count > 0);
     }
   }
   
@@ -415,7 +415,7 @@ export const Booking = () => {
           <Col lg="4" className="d-flex align-items-center justify-content-center">
             {dataFilled ? (
               <>
-                {checked ? (
+                {noAvail ? (
                   <>
                     <Button variant="outlined" onClick={handleAlert1}>Submit</Button>
                   </>
@@ -430,7 +430,6 @@ export const Booking = () => {
                 <Button variant="outlined" onClick={handleAlert2}>Submit</Button>
               </>
             )}
-
           </Col>
         </Row>
         <Row className="sec_sp">

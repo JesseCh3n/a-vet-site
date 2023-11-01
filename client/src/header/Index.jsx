@@ -94,7 +94,7 @@ const Headermain = () => {
                       <>
                         {Auth.getProfile().data.isAdmin ? (
                           <>
-                            <Link onClick={handleToggle} to="/today" className="my-3">Today's Appointments</Link>
+                            <Link onClick={handleToggle} to="/today" className="my-3">Today's Schedule</Link>
                           </>
                         ) : (
                           <>
