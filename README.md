@@ -4,15 +4,15 @@
 ## Description
 
 <p>In the final bootcamp project I decided to build a website for a vet clinic, which includes an interactive booking system.</p>
-<p>The idea came to mind when my girl friend, who's a vet, vent her frustrations one day when her schedule was very disorganised</p>
+<p>The idea came to mind when my girlfriend, who's a vet, vent her frustrations one day when her schedule was very disorganised.</p>
 
 * <b>Designer</b> Jesse Chen
 
 Along the way I have encountered a few challenges in achieving my goals. Some of the challenges are as follows:
 
 * No prior knowledge of REACT framework and GraphQL data query language.
-* There is a substantial amount of documentation to refer when working with 3rd party packages like MongoDB, GraphQL and Vite.
-* I have encountered few issues because of typos in GraphQL schemas, which are not highlighted in VS Code.
+* There is a substantial amount of documentation to refer when working with 3rd party packages like MongoDB, Apollo server and Vite.
+* I have encountered a few issues because of typos in GraphQL schemas, which are not highlighted in VS Code.
 * I had some difficulties in deploying the application on Heroku.
 
 ## Table of Contents
@@ -87,7 +87,8 @@ The following credentials can be used for testing purpose:
 Credit to examples provided by Coding Bootcamp. React templates are based on this [source code](https://github.com/ubaimutl/react-portfolio)
 
 ## License
-<p>[MIT](https://opensource.org/licenses/MIT)<br>`Copyright © 2023 Jesse Chen`</p>
+- [MIT](https://opensource.org/licenses/MIT)
+- `Copyright © 2023 Jesse Chen`
 
 
 ## Contribution Guidelines
