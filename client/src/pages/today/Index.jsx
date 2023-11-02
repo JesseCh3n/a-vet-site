@@ -70,7 +70,7 @@ export const Today = () => {
         }
       }
       initialRows.sort((a, b) => sortOrder.indexOf(a.appointmentTime) - sortOrder.indexOf(b.appointmentTime));
-      console.log(initialRows);
+      // console.log(initialRows);
       setRows(initialRows);
     }
   }, [data]);
