@@ -5,6 +5,7 @@
 
 <p>In the final bootcamp project I decided to build a website for a vet clinic, which includes an interactive booking system.</p>
 <p>The idea came to mind when my girlfriend, who's a vet, vent her frustrations one day when her schedule was very disorganised.</p>
+<p>Therefore, I want to build a new website for her clinic, based on modern web framework and technologies.
 
 * <b>Designer</b> Jesse Chen
 
