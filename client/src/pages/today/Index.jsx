@@ -38,8 +38,7 @@ const sortOrder = ["8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:
 //Export React component
 export const Today = () => {
 
-  // const currentDate = format(new Date, 'dd-MM-yyyy');
-  const currentDate = '02-11-2023';
+  const currentDate = format(new Date, 'dd-MM-yyyy');
   const titleDate = format(new Date, 'dd-MMM-yyyy');
 
   const [rows, setRows] = useState([]);
