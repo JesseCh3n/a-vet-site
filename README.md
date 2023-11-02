@@ -105,4 +105,4 @@ Credit to examples provided by Coding Bootcamp. React templates are based on thi
 
 [Github Repository](https://github.com/JesseCh3n/a-vet-site) 
 
-[Heroku application](https://agile-chamber-51883-7e60747c00dc.herokuapp.com/)
+[Heroku Application](https://agile-chamber-51883-7e60747c00dc.herokuapp.com/)
