@@ -6,12 +6,19 @@ import { Container, Row, Col } from "react-bootstrap";
 import { contactConfig } from "../../content_option.js";
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER, ADD_USER } from '../../utils/mutations';
+import { Alert } from "react-bootstrap";
 
 import Auth from '../../utils/auth';
 
 export const ContactUs = () => {
   //Login Form
   const [form1State, setForm1State] = useState({ email: '', password: '' });
+  const [alertData, setAlertdata] = useState({
+    loading: false,
+    show: false,
+    alertmessage: "",
+    variant: "",
+  });
   const [login] = useMutation(LOGIN_USER);
 
   const handleLoginChange = (event) => {
@@ -25,14 +32,18 @@ export const ContactUs = () => {
 
   const handleForm1Submit = async (event) => {
     event.preventDefault();
-    console.log(form1State);
     try {
       const { data } = await login({
         variables: { ...form1State },
       });
-
       Auth.login(data.login.token);   
     } catch (e) {
+      setAlertdata({
+        loading: false,
+        alertmessage: `Please enter correct details!`,
+        variant: "login",
+        show: true,
+      });
       console.error(e);
     }
 
@@ -62,7 +73,6 @@ export const ContactUs = () => {
 
   const handleForm2Submit = async (event) => {
     event.preventDefault();
-    console.log(form2State);
 
     try {
       const { data } = await addUser({
@@ -163,6 +173,19 @@ export const ContactUs = () => {
                     Login
                   </button>
                 </Col>
+              </Row>
+              <Row>
+                <Alert
+                  //show={formData.show}
+                  variant={alertData.variant}
+                  className={`rounded-0 co_alert ${
+                    alertData.show ? "d-block" : "d-none"
+                  }`}
+                  onClose={() => setAlertdata({ show: false })}
+                  dismissible
+                >
+                  <p className="my-0">{alertData.alertmessage}</p>
+                </Alert>
               </Row>
             </form>
           </Col>
